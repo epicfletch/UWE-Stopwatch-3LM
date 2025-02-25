@@ -1,24 +1,9 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 Edg/133.0.0.0" version="26.0.16" pages="3">
   <diagram name="Clock" id="9cqj9Gj7yjOjQMQ0VUwX">
-    <mxGraphModel dx="1869" dy="661" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1042" dy="661" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="8n1duQOLwVwz-LnbPC5G-1" value="" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
-          <mxGeometry x="370" y="300" width="120" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="e_SC1C_LSN13F195xKPr-1" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
-          <mxGeometry x="-200" y="290" width="80" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="e_SC1C_LSN13F195xKPr-2" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
-          <mxGeometry x="-120" y="290" width="80" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="e_SC1C_LSN13F195xKPr-3" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
-          <mxGeometry x="-150" y="90" width="60" height="220" as="geometry" />
-        </mxCell>
-        <mxCell id="e_SC1C_LSN13F195xKPr-4" value="" style="shape=or;whiteSpace=wrap;html=1;rotation=-90;" vertex="1" parent="1">
-          <mxGeometry x="-150" y="50" width="60" height="80" as="geometry" />
-        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
