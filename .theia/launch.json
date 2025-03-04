@@ -2,15 +2,6 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Toggle LED",
-            "type": "ccs-debug",
-            "request": "launch",
-            "projectInfo": {
-                "name": "Toggle LED",
-                "resourceId": "/Toggle LED"
-            }
-        },
-        {
             "name": "Button Tests",
             "type": "ccs-debug",
             "request": "launch",

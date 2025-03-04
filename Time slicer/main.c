@@ -28,8 +28,8 @@
 #define RED_LED BIT0
 #define GREEN_LED BIT0
 
-#define MAX_PROCESSES   2
-#define STACK_SIZE      100
+#define MAX_PROCESSES   3
+#define STACK_SIZE      150
 
 
 /*F ----------------------------------------------------------------------------
@@ -83,6 +83,32 @@ void green_led()
     }
 }
 
+/*F ----------------------------------------------------------------------------
+  NAME :      both_led()
+
+  DESCRIPTION :
+              toggles both LEDs
+
+*F ---------------------------------------------------------------------------*/
+void both_led()
+{
+    volatile unsigned int i;             // make sure i is not optimized away
+
+    for (;;)
+    {
+        P4OUT |= GREEN_LED;  
+        P1OUT |= RED_LED;             
+        for (i=0; i<20000; i++)
+        {
+        }
+
+        P4OUT &= ~GREEN_LED;   
+        P1OUT &= ~RED_LED;              
+        for (i=0; i<20000; i++)
+        {
+        }
+    }
+}
 
 /* -----------------------------------------------------------------------------
   static memory allocation for the process control blocks PCB
@@ -293,6 +319,7 @@ void main(void)
 
     initialise_process(0, red_led);
     initialise_process(1, green_led);
+    initialise_process(2, both_led);
 
 
     run_process(current_process);
@@ -333,8 +360,7 @@ void main(void)
 __interrupt void PORT1_ISR(void)
 {
   __bic_SR_register(GIE); // Clear GIE bit, disabling interrupts
-  P1IFG &= ~BIT2;         // Clear interrupt flag
-  __delay_cycles(100000);  // Delay for 100,000 clock cycles
+  __delay_cycles(250000);  // Delay for 100,000 clock cycles
 
     asm(
             " push.a R10\n"
@@ -366,4 +392,5 @@ __interrupt void PORT1_ISR(void)
             " pop.a R10 \n"   
     );
     __bis_SR_register(GIE); // Set General Interrupt Enable (GIE) bit
+    P1IFG &= ~BIT2;         // Clear interrupt flag
 }
