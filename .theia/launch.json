@@ -1,0 +1,32 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Lab1",
+            "type": "ccs-debug",
+            "request": "launch",
+            "projectInfo": {
+                "name": "Lab1",
+                "resourceId": "/Lab1"
+            }
+        },
+        {
+            "name": "Lab2",
+            "type": "ccs-debug",
+            "request": "launch",
+            "projectInfo": {
+                "name": "Lab2",
+                "resourceId": "/Lab2"
+            }
+        },
+        {
+            "name": "emptyProject",
+            "type": "ccs-debug",
+            "request": "launch",
+            "projectInfo": {
+                "name": "emptyProject",
+                "resourceId": "/emptyProject"
+            }
+        }
+    ]
+}
