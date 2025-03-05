@@ -1,23 +1,25 @@
 /*H ----------------------------------------------------------------------------
-  FILENAME :  main.c
+  FILENAME :  ClockFSM.h
 
   DESCRIPTION :
-              Main function for UWE stopwatch project
+              Header file for Clock Finite state machine 
 
  AUTHOR :     Josh Fletcher
 
 
  INCLUDES :
-              "HardwareSetup" 
 
  CHANGES :
 
 *H ---------------------------------------------------------------------------*/
 
-#include "HardwareSetup"
+#ifndef ClockFSM_H
+#define ClockFSM_H
 
-void main (void)
-{
-    DisableWatchdog();
-    SetupClock();
-}
+#include "Defines.h"
+
+extern uint8_t clockState;
+
+void clockFSM();
+
+#endif

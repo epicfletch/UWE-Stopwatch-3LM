@@ -18,6 +18,15 @@
                 "name": "Synchro test",
                 "resourceId": "/Synchro test"
             }
+        },
+        {
+            "name": "StopwatchProject",
+            "type": "ccs-debug",
+            "request": "launch",
+            "projectInfo": {
+                "name": "StopwatchProject",
+                "resourceId": "/StopwatchProject"
+            }
         }
     ]
 }

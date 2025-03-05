@@ -13,11 +13,17 @@
  CHANGES :
 
 *H ---------------------------------------------------------------------------*/
+int testing;
 
-#include "HardwareSetup"
+#include "HardwareSetup.h"
+#include "ProcessSwitching.h"
+#include "Clock.h"
 
-void main (void)
-{
-    DisableWatchdog();
-    SetupClock();
+void main (void){
+  /* initialise hardware */
+  DisableWatchdog();
+  SetupClock();
+  SetupGPIO();
+  SetupButtonInterrupts();
+  SetupTimerInterrupt();
 }

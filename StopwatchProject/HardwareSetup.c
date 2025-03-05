@@ -4,26 +4,37 @@
   DESCRIPTION :
               Functions file for microcontroller hardware setup
 
-  INPUTS :    none
 
-  RETURNS :   void
 
   FUNCTIONS :
               [1]   Disable watchdog function
+                INPUTS :    none
+                RETURNS :   void
+                  a) disable watchdog
               [2]   Setup clock with 16MHz frequency
+                INPUTS :    none
+                RETURNS :   void
+                a) disable watchdog
+                b) disable watchdog
               [3]   Setup LED and Button GPIO pins
+                INPUTS :    none
+                RETURNS :   void
               [4]   Setup interrupt on button press
+                INPUTS :    none
+                RETURNS :   void
               [5]   Setup timer interrupt with 10ms frequency
+                INPUTS :    none
+                RETURNS :   void
 
 *F ---------------------------------------------------------------------------*/
 
 #include "HardwareSetup.h"
 
-DisableWatchdog(){
+void DisableWatchdog(){
   WDTCTL = WDTPW | WDTHOLD; /* Disable watchdog timer */
 }
 
-SetupClock(){
+void SetupClock(){
   /* sets clock speed to 16MHz*/
   __bis_SR_register(SCG0);                   /* Disable FLL */
   
@@ -37,7 +48,7 @@ SetupClock(){
   while(CSCTL7 & (FLLUNLOCK0 | FLLUNLOCK1)); /* FLL locked */
 }
 
-SetupGPIO(){
+void SetupGPIO(){
   /* setup LEDs */
   P1DIR |=  RED_LED;                 /* Set P1.0 to output direction */
   P4DIR |=  GREEN_LED;                 /* Set P4.0 to output direction */
@@ -54,13 +65,13 @@ SetupGPIO(){
   P1OUT |= LAP_RESET;              /* Select pull-up resistor */
 }
 
-SetupButtonInterrupts(){
+void SetupButtonInterrupts(){
   P1IE  |= START_STOP;              /* Enable interrupt on P1.2 */
   P1IES |= START_STOP;              /* Trigger on falling edge (button press) */
   P1IFG &= ~START_STOP;             /* Clear any pending interrupt flag */
 }
 
-SetupTimerInterrupt(){
+void SetupTimerInterrupt(){
   TA0CCR0 =  20000;     /* set compare value 20000 (10ms @ 2MHz) */
   TA0CCTL0 = 0x10;      /* Enable counter interrupts, bit 4=1 */
   TA0CTL |=  TASSEL_2;  /* use SMCLK as source */
