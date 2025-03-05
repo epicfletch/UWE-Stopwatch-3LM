@@ -17,6 +17,7 @@
 *H ---------------------------------------------------------------------------*/
 
 
+#include "msp430fr4133.h"
 #include <msp430.h>
 
 // defines to make it a little easier
@@ -30,6 +31,8 @@
 
 #define MAX_PROCESSES   3
 #define STACK_SIZE      150
+
+volatile int ms = 0;
 
 
 /*F ----------------------------------------------------------------------------
@@ -46,14 +49,14 @@ void red_led()
     for (;;)
     {
         P1OUT |= RED_LED;                 // Set P1.0 on  (Red LED)
-        for (i=0; i<10000; i++)
-        {
-        }
+        //__delay_cycles(2000000);  // Delay for 100,000 clock cycles
+        while (ms < 1000){}
+        ms = 0;
 
         P1OUT &= ~RED_LED;                 // Set P1.0 off (Red LED)
-        for (i=0; i<10000; i++)
-        {
-        }
+        // __delay_cycles(2000000);  // Delay for 100,000 clock cycles
+        while (ms < 1000){}
+        ms = 0;
     }
 }
 
@@ -71,15 +74,12 @@ void green_led()
 
     for (;;)
     {
+      __bic_SR_register(GIE); /* Clear GIE bit, disabling interrupts */
         P4OUT |= GREEN_LED;               // Set P4.0 on  (Green LED)
-        for (i=0; i<20000; i++)
-        {
-        }
+        __delay_cycles(16000000); 
 
         P4OUT &= ~GREEN_LED;               // Set P4.0 off (Green LED)
-        for (i=0; i<20000; i++)
-        {
-        }
+        __delay_cycles(16000000); 
     }
 }
 
@@ -98,15 +98,11 @@ void both_led()
     {
         P4OUT |= GREEN_LED;  
         P1OUT |= RED_LED;             
-        for (i=0; i<20000; i++)
-        {
-        }
+        __delay_cycles(2000000);  // Delay for 100,000 clock cycles
 
         P4OUT &= ~GREEN_LED;   
         P1OUT &= ~RED_LED;              
-        for (i=0; i<20000; i++)
-        {
-        }
+        __delay_cycles(2000000);  // Delay for 100,000 clock cycles
     }
 }
 
@@ -260,9 +256,6 @@ void run_process(unsigned int process_index)
     }
 }
 
-
-
-
 /*F ----------------------------------------------------------------------------
   NAME :      main()
 
@@ -288,9 +281,16 @@ void main(void)
 {
     WDTCTL = WDTPW | WDTHOLD;       // Stop watchdog timer
 
-    // Initialisation
+    /* sets clock speed to 16MHz*/
+    __bis_SR_register(SCG0);        /* Disable FLL */
+    CSCTL3 = SELREF__REFOCLK;       /* Set REFO as FLL reference source */
 
-    // Initialisation - Hardware
+    CSCTL0 = 0x00;                  /* Clear DCO and MOD bits */
+    CSCTL1 |= DCORSEL_5;            /* Set DCO = 16MHz */
+    CSCTL2 = FLLD_0 + 487;          /* DCOCLKDIV = 16MHz */
+    __delay_cycles(3);
+    __bic_SR_register(SCG0);        /* Enable FLL */
+    while(CSCTL7 & (FLLUNLOCK0 | FLLUNLOCK1)); // FLL locked */
 
     PM5CTL0 &= ~LOCKLPM5;           // Disable the GPIO power-on default high-impedance mode
                                     // to activate previously configured port settings
@@ -312,6 +312,14 @@ void main(void)
     P1IE  |= BIT2;              // Enable interrupt on P1.2
     P1IES |= BIT2;              // Trigger on falling edge (button press)
     P1IFG &= ~BIT2;             // Clear any pending interrupt flag
+
+    /* initialise timer as interrupt (10ms) */
+                                    // Timer A0 (1ms interrupt)
+    TA0CCR0 =  20000;     /* set compare value 20000 (10ms @ 2MHz) */
+    TA0CCTL0 = 0x10;      /* Enable counter interrupts, bit 4=1 */
+    TA0CTL |=   TASSEL_2; /* use SMCLK as source */
+    TA0CTL |=   MC_1;     /* count up to CCR0 */
+    TA0CTL |=   ID_3; /* /8 predivider (16MHz -> 2MHz clock) */
 
     // Initialisation - Software
 
@@ -360,7 +368,7 @@ void main(void)
 __interrupt void PORT1_ISR(void)
 {
   __bic_SR_register(GIE); // Clear GIE bit, disabling interrupts
-  __delay_cycles(250000);  // Delay for 100,000 clock cycles
+  __delay_cycles(2000000);  // Delay for 100,000 clock cycles
 
     asm(
             " push.a R10\n"
@@ -393,4 +401,12 @@ __interrupt void PORT1_ISR(void)
     );
     __bis_SR_register(GIE); // Set General Interrupt Enable (GIE) bit
     P1IFG &= ~BIT2;         // Clear interrupt flag
+}
+
+#pragma vector=TIMER0_A0_VECTOR
+__interrupt void Timer0_A0 (void)    // Timer0 A0 1ms interrupt service routine
+{
+  __bic_SR_register(GIE); /* Clear GIE bit, disabling interrupts */
+  ms += 10; /* add 10ms to the ms count */
+  __bis_SR_register(GIE); /* Set General Interrupt Enable (GIE) bit */
 }
