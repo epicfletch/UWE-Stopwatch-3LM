@@ -30,4 +30,6 @@ void SetupButtonInterrupts();
 
 void SetupTimerInterrupt();
 
+void SetupLCD();
+
 #endif

@@ -22,8 +22,8 @@
 
 struct ProcessControlBlock
 {
-    uint32_t sp;
-    uint8_t stack[STACK_SIZE];
+  uint32_t sp;
+  uint8_t stack[STACK_SIZE];
 };
 
 extern struct ProcessControlBlock process[MAX_PROCESSES];

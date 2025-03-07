@@ -31,8 +31,8 @@
 #define LAP_RESET BIT6  /* P2.6 */
 #define MODE 0          /* mode button port to be decided on */
 
-#define MAX_PROCESSES   3
-#define STACK_SIZE      150
+#define MAX_PROCESSES   2
+#define STACK_SIZE      100
 
 /* clock states */
 #define CLOCK_NORMAL 0

@@ -25,10 +25,14 @@
               [5]   Setup timer interrupt with 10ms frequency
                 INPUTS :    none
                 RETURNS :   void
+              [6]   Setup LCD display
+                INPUTS :    none
+                RETURNS :   void
 
 *F ---------------------------------------------------------------------------*/
 
 #include "HardwareSetup.h"
+#include "msp430fr4133.h"
 
 void DisableWatchdog(){
   WDTCTL = WDTPW | WDTHOLD; /* Disable watchdog timer */
@@ -60,13 +64,13 @@ void SetupGPIO(){
   P1REN |= START_STOP;              /* Enable pull-up/down resistor */
   P1OUT |= START_STOP;              /* Select pull-up resistor */
 
-  P1DIR &= ~LAP_RESET;             /* Set P2.6 as input */
-  P1REN |= LAP_RESET;              /* Enable pull-up/down resistor */
-  P1OUT |= LAP_RESET;              /* Select pull-up resistor */
+  P2DIR &= ~LAP_RESET;             /* Set P2.6 as input */
+  P2REN |= LAP_RESET;              /* Enable pull-up/down resistor */
+  P2OUT |= LAP_RESET;              /* Select pull-up resistor */
 }
 
 void SetupButtonInterrupts(){
-  P1IE  |= START_STOP;              /* Enable interrupt on P1.2 */
+  P1IE  |= START_STOP;                    /* Enable interrupt on P1.2 */
   P1IES |= START_STOP;              /* Trigger on falling edge (button press) */
   P1IFG &= ~START_STOP;             /* Clear any pending interrupt flag */
 }
@@ -80,4 +84,33 @@ void SetupTimerInterrupt(){
 }
 
 
+void SetupLCD(){
+      // Configure LCD pins
+    SYSCFG2 |= LCDPCTL;                                        // R13/R23/R33/LCDCAP0/LCDCAP1 pins selected
+
+    LCDPCTL0 = 0xFFFF;
+    LCDPCTL1 = 0x07FF;
+    LCDPCTL2 = 0x00F0;                                         // L0~L26 & L36~L39 pins selected
+
+    LCDCTL0 = LCDSSEL_2 | LCDDIV_0;                            // flcd ref freq is VLOCLK divide 1
+
+    //LCD Operation - Mode 2
+    LCDVCTL = LCDCPEN |                                        //Enable charge pump
+            LCDSELVDD |                                        //Internally connect to Vcc
+            VLCD_8 |                                           //internal 3.08v
+           (LCDCPFSEL0 | LCDCPFSEL1 | LCDCPFSEL2 | LCDCPFSEL3);//Charge pump frequency selection 256Hz
+
+    LCDMEMCTL |= LCDCLRM | LCDCLRBM;                           // Clear LCD memory
+
+    LCDCSSEL0 = 0x000F;                                        // Configure COMs and SEGs
+    LCDCSSEL1 = 0x0000;                                        // L0, L1, L2, L3: COM pins
+    LCDCSSEL2 = 0x0000;
+
+    LCDM0 = 0x21;                                              // L0 = COM0, L1 = COM1
+    LCDM1 = 0x84;                                              // L2 = COM2, L3 = COM3
+
+    LCDBLKCTL = 0;
+
+    LCDCTL0 |= LCD4MUX | LCDON;                                // Turn on LCD, 4-mux selected
+}
 

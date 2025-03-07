@@ -399,8 +399,10 @@ __interrupt void PORT1_ISR(void)
             " pop.a R9 \n"
             " pop.a R10 \n"   
     );
-    __bis_SR_register(GIE); // Set General Interrupt Enable (GIE) bit
+    
     P1IFG &= ~BIT2;         // Clear interrupt flag
+    __bis_SR_register(GIE); // Set General Interrupt Enable (GIE) bit
+    
 }
 
 #pragma vector=TIMER0_A0_VECTOR
