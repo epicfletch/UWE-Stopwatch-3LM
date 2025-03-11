@@ -35,8 +35,8 @@ extern uint32_t saved_sp;
 
 extern uint8_t current_process;
 
-extern uint8_t pc1;
-extern uint8_t pc2;
+extern uint16_t pc1;
+extern uint16_t pc2;
 
 void initialise_process(unsigned int process_index, void (*funct)());
 

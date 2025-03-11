@@ -23,13 +23,10 @@ void main (void){
   DisableWatchdog();
   SetupClock();
   SetupGPIO();
-  //SetupButtonInterrupts();
+  SetupButtonInterrupts();
   SetupTimerInterrupt();
   SetupLCD();
 
-  // _BIS_SR(GIE);
-
-  // clockFSM();
   P1IFG = 0;         /* Clear interrupt flag */
   _BIS_SR(GIE);                   // interrupts enabled (we need to do it here so it gets saved to stack)
 

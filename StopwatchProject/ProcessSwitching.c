@@ -20,8 +20,8 @@ uint32_t saved_sp;
 
 uint8_t current_process = 0;
 
-uint8_t pc1;
-uint8_t pc2;
+uint16_t pc1;
+uint16_t pc2;
 
 
 void initialise_process(unsigned int process_index, void (*funct)()){
@@ -36,8 +36,8 @@ void initialise_process(unsigned int process_index, void (*funct)()){
 
         // Construct combined PC+SR used by interrupt
 
-        pc1 = (uint8_t)program_counter;
-        pc2 = (uint8_t)(((program_counter>>4)&0x0F000) | status&0x00FFF);
+        pc1 = (uint16_t)program_counter;
+        pc2 = (uint16_t)(((program_counter>>4)&0x0F000) | status&0x00FFF);
 
         asm(
                 " movx.a sp,&saved_sp\n"
@@ -124,6 +124,7 @@ __interrupt void PORT1_ISR(void){
             " pop.a R9 \n"
             " pop.a R10 \n"   
     );
+    P1IFG = 0;         /* Clear interrupt flag */
     __bis_SR_register(GIE); /* Set General Interrupt Enable (GIE) bit */
-    P1IFG &= ~BIT2;         /* Clear interrupt flag */
+    
 }
