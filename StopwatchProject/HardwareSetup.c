@@ -53,6 +53,8 @@ void SetupClock(){
 }
 
 void SetupGPIO(){
+  PM5CTL0 &= ~LOCKLPM5;           // Disable the GPIO power-on default high-impedance mode
+                                    // to activate previously configured port settings
   /* setup LEDs */
   P1DIR |=  RED_LED;                 /* Set P1.0 to output direction */
   P4DIR |=  GREEN_LED;                 /* Set P4.0 to output direction */

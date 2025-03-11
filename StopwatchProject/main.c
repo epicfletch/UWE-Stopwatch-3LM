@@ -22,13 +22,16 @@ void main (void){
   DisableWatchdog();
   SetupClock();
   SetupGPIO();
-  //SetupButtonInterrupts();
+  SetupButtonInterrupts();
   SetupTimerInterrupt();
   SetupLCD();
 
+<<<<<<< HEAD
   // _BIS_SR(GIE);
   // Testing the merge
   // clockFSM();
+=======
+>>>>>>> 05e0d428f2549278daf9563845e25032aa7ece15
   P1IFG = 0;         /* Clear interrupt flag */
   _BIS_SR(GIE);                   // interrupts enabled (we need to do it here so it gets saved to stack)
 
