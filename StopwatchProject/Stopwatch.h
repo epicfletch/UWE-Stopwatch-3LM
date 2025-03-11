@@ -13,8 +13,8 @@
 
 *H ---------------------------------------------------------------------------*/
 
-#ifndef ClockFSM_H
-#define ClockFSM_H
+#ifndef Stopwatch_H
+#define Stopwatch_H
 
 #include "Defines.h"
 #include "ClockNormal.h"

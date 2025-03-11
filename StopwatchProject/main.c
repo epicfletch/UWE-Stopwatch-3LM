@@ -14,7 +14,6 @@
 
 *H ---------------------------------------------------------------------------*/
 #include "HardwareSetup.h"
-#include "ProcessSwitching.h"
 #include "ClockFSM.h"
 
 void main (void){

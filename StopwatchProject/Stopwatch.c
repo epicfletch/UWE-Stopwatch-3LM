@@ -16,7 +16,7 @@
                   d) toggles on and off the alarm
 *F ---------------------------------------------------------------------------*/
 
-#include "ClockFSM.h"
+#include "Stopwatch.h"
 
 
 
