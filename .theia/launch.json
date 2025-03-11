@@ -2,30 +2,39 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Lab1",
+            "name": "Time slicer",
             "type": "ccs-debug",
             "request": "launch",
             "projectInfo": {
-                "name": "Lab1",
-                "resourceId": "/Lab1"
+                "name": "Time slicer",
+                "resourceId": "/Time slicer"
             }
         },
         {
-            "name": "Lab2",
+            "name": "Synchro test",
             "type": "ccs-debug",
             "request": "launch",
             "projectInfo": {
-                "name": "Lab2",
-                "resourceId": "/Lab2"
+                "name": "Synchro test",
+                "resourceId": "/Synchro test"
             }
         },
         {
-            "name": "emptyProject",
+            "name": "StopwatchProject",
             "type": "ccs-debug",
             "request": "launch",
             "projectInfo": {
-                "name": "emptyProject",
-                "resourceId": "/emptyProject"
+                "name": "StopwatchProject",
+                "resourceId": "/StopwatchProject"
+            }
+        },
+        {
+            "name": "LCD tests",
+            "type": "ccs-debug",
+            "request": "launch",
+            "projectInfo": {
+                "name": "LCD tests",
+                "resourceId": "/LCD tests"
             }
         }
     ]
