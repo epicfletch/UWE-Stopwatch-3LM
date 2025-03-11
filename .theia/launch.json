@@ -27,15 +27,6 @@
                 "name": "StopwatchProject",
                 "resourceId": "/StopwatchProject"
             }
-        },
-        {
-            "name": "LCD tests",
-            "type": "ccs-debug",
-            "request": "launch",
-            "projectInfo": {
-                "name": "LCD tests",
-                "resourceId": "/LCD tests"
-            }
         }
     ]
 }
