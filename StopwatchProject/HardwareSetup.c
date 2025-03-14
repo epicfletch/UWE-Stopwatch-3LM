@@ -115,4 +115,3 @@ void SetupLCD(){
 
     LCDCTL0 |= LCD4MUX | LCDON;                                // Turn on LCD, 4-mux selected
 }
-

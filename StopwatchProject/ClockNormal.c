@@ -1,44 +1,43 @@
 /*F ----------------------------------------------------------------------------
-  NAME :      ClockFSM.c
+  NAME :      ClockNormal.c
 
   DESCRIPTION :
-              Controls what state the clock mode is in 
+              Functions to control the behaviour of the clock in its normal state
 
 
 
   FUNCTIONS :
-              [1] Finite state machine for the clock mode
+              [1] 
                 INPUTS :    none
                 RETURNS :   void
-                  a) displays the time as 24hr clock and day of the week 
-                  b) displays the date
-                  c) displays what time the alarm is set to
-                  d) toggles on and off the alarm
+                  a) 
 *F ---------------------------------------------------------------------------*/
 
-#include "Stopwatch.h"
+#include "ClockNormal.h"
+#include "intrinsics.h"
 
+void updateDisplay(){
+    LCDMEM[4] = digit[hours / 10][0];
+    LCDMEM[5] = digit[hours / 10][1];
+    LCDMEM[6] = digit[hours % 10][0];
+    LCDMEM[7] = digit[hours % 10][1];
 
+    LCDMEM[7] |= symbols[0][0];
 
-uint8_t clockState = CLOCK_NORMAL;
+    LCDMEM[8] = digit[minutes / 10][0];
+    LCDMEM[9] = digit[minutes / 10][1];
+    LCDMEM[10] = digit[minutes % 10][0];
+    LCDMEM[11] = digit[minutes % 10][1];
 
-void clockFSM(){
-    LCDCTL0 |= LCD4MUX | LCDON;                                // Turn on LCD, 4-mux selected
-    while(1){
-        switch (clockState){
-            case CLOCK_NORMAL:
-                updateDisplay();
-                break;
-            case CLOCK_DATE:
+    LCDMEM[11] |= symbols[0][0];
 
-                break;
-            case CLOCK_ALARM_TIME:
-
-                break;
-            case CLOCK_ALARM_TOGGLE:
-
-                break;
-            default:
-        }
-    }
+    LCDMEM[2] = digit[seconds / 10][0];
+    LCDMEM[3] = digit[seconds / 10][1];
+    LCDMEM[18] = digit[seconds % 10][0];
+    LCDMEM[19] = digit[seconds % 10][1];
+    __delay_cycles(8000000);
 }
+
+void clearLCD(){
+  LCDMEMCTL |= LCDCLRM | LCDCLRBM;  /* Clear LCD memory */
+} 

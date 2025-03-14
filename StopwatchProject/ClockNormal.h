@@ -1,8 +1,8 @@
 /*H ----------------------------------------------------------------------------
-  FILENAME :  ClockFSM.h
+  FILENAME :  ClockNormal.h
 
   DESCRIPTION :
-              Header file for Clock Finite state machine 
+              Header file for clocks normal state 
 
  AUTHOR :     Josh Fletcher
 
@@ -12,15 +12,15 @@
  CHANGES :
 
 *H ---------------------------------------------------------------------------*/
-
-#ifndef Stopwatch_H
-#define Stopwatch_H
+#ifndef ClockNormal_H
+#define ClockNormal_H
 
 #include "Defines.h"
-#include "ClockNormal.h"
+#include "LCD.h"
+#include "Clock.h"
 
-extern uint8_t clockState;
+void updateDisplay();
 
-void clockFSM();
+void clearLCD();
 
 #endif
