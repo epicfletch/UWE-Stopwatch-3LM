@@ -17,6 +17,8 @@
 *F ---------------------------------------------------------------------------*/
 
 #include "ClockFSM.h"
+#include "Chime.h"
+#include "ClockAlarm.h"
 #include "Defines.h"
 #include "msp430fr4133.h"
 
@@ -36,49 +38,69 @@ void clockFSM(){
                     clockState = CLOCK_ALARM_TIME;
                     lapResetFlag = 0;
                 }
-                else {
+                else {\
                     clockState = CLOCK_NORMAL;
                 }
                 break;
             case CLOCK_DATE: /* displays the date */
                 /* determine transitions */
                 if(P1IN & START_STOP){
-                    clockState = CLOCK_DATE;
+                    clockState = CLOCK_NORMAL; 
                 }
                 else{
-                    clockState = CLOCK_NORMAL;
+                    if(modeFlag == 1){
+                        clockState = CLOCK_CHIME_TOGGLE;
+                        modeFlag = 0;
+                    }
+                    clockState = CLOCK_DATE;
                 }
                 break;
             case CLOCK_ALARM_TIME: /* displays the alarm time */
+                updateAlarmTime();
                 /* determine transitions */
                 if(P2IN & LAP_RESET){
-                    if(P1IN & START_STOP){
+                    clockState = CLOCK_NORMAL;
+                }
+                else{
+                    if(startStopFlag == 1){
+                        startStopFlag = 0;
                         clockState = CLOCK_ALARM_TOGGLE;
                     }
                     clockState = CLOCK_ALARM_TIME;
                 }
-                else{
-                    clockState = CLOCK_NORMAL;
-                }
                 break;
             case CLOCK_ALARM_TOGGLE: /* toggles alarm on and off */
+            alarmToggle();
                 /* determine transitions */
                 if(P2IN & LAP_RESET){
+                    clockState = CLOCK_NORMAL;
+                }
+                else {
                     if(startStopFlag == 1){
                         startStopFlag = 0;
                         clockState = CLOCK_ALARM_TOGGLE;
-
                     }
                     else{
                         clockState = CLOCK_ALARM_TIME;
                     }
                 }
-                else {
-                    clockState = CLOCK_NORMAL;
-                }
                 break;
             case CLOCK_ALARM:
             
+                break;
+            case CLOCK_CHIME_TOGGLE:
+                chimeToggle();
+                /* determine transitions */
+                if(P1IN & START_STOP){
+                    clockState = CLOCK_NORMAL; 
+                }
+                if(modeFlag == 1){
+                    modeFlag = 0;
+                    clockState = CLOCK_CHIME_TOGGLE;
+                }
+                else{
+                    clockState = CLOCK_DATE;
+                }  
                 break;
             default:
         }

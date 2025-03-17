@@ -20,14 +20,11 @@
 
 #include "TimerInterrupt.h"
 
-// uint16_t milliSeconds = 0;
-// uint8_t seconds = 0;
-// uint8_t minutes = 0;
-// uint8_t hours = 0;
 uint8_t weekday = 0;
 
 struct time clockTime = {0, 0, 0};
-struct time StopwatchTime = {0, 0, 0};
+struct time stopwatchTime = {0, 0, 0};
+struct time alarmTime = {0, 0, 0};
 
 #pragma vector=TIMER0_A0_VECTOR
 __interrupt void Timer0_A0 (void)    // Timer0 A0 1ms interrupt service routine

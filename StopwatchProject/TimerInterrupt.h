@@ -30,7 +30,8 @@ struct time
 };
 
 extern struct time clockTime;
-extern struct time StopwatchTime;
+extern struct time stopwatchTime;
+extern struct time alarmTime;
 
 
 __interrupt void Timer0_A0 (void);

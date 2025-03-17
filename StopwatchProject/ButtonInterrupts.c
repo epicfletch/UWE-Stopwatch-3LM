@@ -16,6 +16,7 @@
 
 int startStopFlag = 0;
 int lapResetFlag = 0;
+int modeFlag = 0;
 
 #pragma vector=PORT1_VECTOR
 __interrupt void PORT1_ISR(void){

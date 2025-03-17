@@ -20,6 +20,7 @@
 
 extern int startStopFlag;
 extern int lapResetFlag;
+extern int modeFlag;
 
 __interrupt void PORT1_ISR(void);
 

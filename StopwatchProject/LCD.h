@@ -64,10 +64,11 @@ static const uint8_t alphabetBig[26][2] =
     {0x90, 0x28}   /* "Z" */
 };
 
-static const uint8_t symbols[2][2] = 
+static const uint8_t symbols[3][2] = 
 {
     {0x04, 0x00},  /* ":" LCD segments Col */
     {0x02, 0x00}  /* "REC" LCD segments REC */
+    {0x04, 0x00}  /* "ANT" LCD segments ANT */
 };
 
 static const uint8_t dayOfWeek[7][4] =

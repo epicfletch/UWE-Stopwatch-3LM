@@ -12,9 +12,6 @@
 *F ---------------------------------------------------------------------------*/
 
 #include "ClockNormal.h"
-#include "Defines.h"
-#include "LCD.h"
-#include "intrinsics.h"
 
 void updateClock(){
     LCDMEM[4] = digit[clockTime.hours / 10][0];
@@ -33,5 +30,5 @@ void updateClock(){
     LCDMEM[3] = dayOfWeek[weekday][1];
     LCDMEM[18] = dayOfWeek[weekday][2];
     LCDMEM[19] = dayOfWeek[weekday][3];
-    __delay_cycles(8000000);
+    //__delay_cycles(8000000);
 }
