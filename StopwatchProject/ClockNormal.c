@@ -16,7 +16,7 @@
 #include "LCD.h"
 #include "intrinsics.h"
 
-void updateDisplay(){
+void updateClock(){
     LCDMEM[4] = digit[clockTime.hours / 10][0];
     LCDMEM[5] = digit[clockTime.hours / 10][1];
     LCDMEM[6] = digit[clockTime.hours % 10][0];

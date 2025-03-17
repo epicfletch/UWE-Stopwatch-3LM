@@ -26,7 +26,7 @@ void clockFSM(){
     while(1){
         switch (clockState){
             case CLOCK_NORMAL: /* normal clock display */
-                updateDisplay();
+                updateClock();
                 /* determine transitions */
                 if(startStopFlag == 1){
                     clockState = CLOCK_DATE;
