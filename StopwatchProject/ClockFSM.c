@@ -17,26 +17,68 @@
 *F ---------------------------------------------------------------------------*/
 
 #include "ClockFSM.h"
-
-
+#include "Defines.h"
+#include "msp430fr4133.h"
 
 uint8_t clockState = CLOCK_NORMAL;
 
 void clockFSM(){
-    LCDCTL0 |= LCD4MUX | LCDON;                                // Turn on LCD, 4-mux selected
     while(1){
         switch (clockState){
-            case CLOCK_NORMAL:
+            case CLOCK_NORMAL: /* normal clock display */
                 updateDisplay();
+                /* determine transitions */
+                if(startStopFlag == 1){
+                    clockState = CLOCK_DATE;
+                    startStopFlag = 0;
+                }
+                else if(lapResetFlag == 1){
+                    clockState = CLOCK_ALARM_TIME;
+                    lapResetFlag = 0;
+                }
+                else {
+                    clockState = CLOCK_NORMAL;
+                }
                 break;
-            case CLOCK_DATE:
-
+            case CLOCK_DATE: /* displays the date */
+                /* determine transitions */
+                if(P1IN & START_STOP){
+                    clockState = CLOCK_DATE;
+                }
+                else{
+                    clockState = CLOCK_NORMAL;
+                }
                 break;
-            case CLOCK_ALARM_TIME:
-
+            case CLOCK_ALARM_TIME: /* displays the alarm time */
+                /* determine transitions */
+                if(P2IN & LAP_RESET){
+                    if(P1IN & START_STOP){
+                        clockState = CLOCK_ALARM_TOGGLE;
+                    }
+                    clockState = CLOCK_ALARM_TIME;
+                }
+                else{
+                    clockState = CLOCK_NORMAL;
+                }
                 break;
-            case CLOCK_ALARM_TOGGLE:
+            case CLOCK_ALARM_TOGGLE: /* toggles alarm on and off */
+                /* determine transitions */
+                if(P2IN & LAP_RESET){
+                    if(startStopFlag == 1){
+                        startStopFlag = 0;
+                        clockState = CLOCK_ALARM_TOGGLE;
 
+                    }
+                    else{
+                        clockState = CLOCK_ALARM_TIME;
+                    }
+                }
+                else {
+                    clockState = CLOCK_NORMAL;
+                }
+                break;
+            case CLOCK_ALARM:
+            
                 break;
             default:
         }

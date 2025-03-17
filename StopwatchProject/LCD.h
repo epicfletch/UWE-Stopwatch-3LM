@@ -70,4 +70,15 @@ static const uint8_t symbols[2][2] =
     {0x02, 0x00}  /* "REC" LCD segments REC */
 };
 
+static const uint8_t dayOfWeek[7][4] =
+{
+    {0x6C, 0xA0, 0xFC, 0x00},  /* displays Mo for monday */
+    {0x80, 0x50, 0x7C, 0x00},  /* displays Tu for tuesday */
+    {0x6C, 0x0A, 0x9F, 0x00},  /* displays We for wednesday */
+    {0x80, 0x50, 0x6F, 0x00},  /* displays Th for thursday */
+    {0x8F, 0x00, 0xCF, 0x02},  /* displays Fr for friday */
+    {0xB7, 0x00, 0xEF, 0x00},  /* displays Sa for saturday */
+    {0xB7, 0x00, 0x7C, 0x00},  /* displays Su for sunday */
+};
+
 #endif
