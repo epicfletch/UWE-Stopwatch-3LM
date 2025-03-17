@@ -21,6 +21,7 @@
 #include "ClockAlarm.h"
 #include "Defines.h"
 #include "msp430fr4133.h"
+#include "Date.h"
 
 uint8_t clockState = CLOCK_NORMAL;
 
@@ -43,6 +44,7 @@ void clockFSM(){
                 }
                 break;
             case CLOCK_DATE: /* displays the date */
+                updateDate();
                 /* determine transitions */
                 if(P1IN & START_STOP){
                     clockState = CLOCK_NORMAL; 
@@ -66,11 +68,13 @@ void clockFSM(){
                         startStopFlag = 0;
                         clockState = CLOCK_ALARM_TOGGLE;
                     }
-                    clockState = CLOCK_ALARM_TIME;
+                    else{
+                        clockState = CLOCK_ALARM_TIME;
+                    }
                 }
                 break;
             case CLOCK_ALARM_TOGGLE: /* toggles alarm on and off */
-            alarmToggle();
+                alarmToggle();
                 /* determine transitions */
                 if(P2IN & LAP_RESET){
                     clockState = CLOCK_NORMAL;

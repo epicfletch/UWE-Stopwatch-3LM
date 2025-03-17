@@ -26,5 +26,5 @@ void chimeToggle(){
     }
 }
 void chime(){
-
+    /* toggle LED */
 }
