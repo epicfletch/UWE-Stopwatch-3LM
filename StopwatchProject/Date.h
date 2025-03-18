@@ -1,8 +1,8 @@
 /*H ----------------------------------------------------------------------------
-  FILENAME :  ClockNormal.h
+  FILENAME :  Date.h
 
   DESCRIPTION :
-              Header file for clocks normal state 
+              Header file for clocks different alarm states 
 
  AUTHOR :     Josh Fletcher
 
@@ -12,14 +12,14 @@
  CHANGES :
 
 *H ---------------------------------------------------------------------------*/
-#ifndef ClockNormal_H
-#define ClockNormal_H
+#ifndef Date_H
+#define Date_H
 
 #include "Defines.h"
 #include "LCD.h"
 #include "TimerInterrupt.h"
 #include "ButtonInterrupts.h"
 
-void updateClock();
+void updateDate();
 
 #endif

@@ -24,7 +24,7 @@ uint16_t pc1;
 uint16_t pc2;
 
 
-void initialise_process(unsigned int process_index, void (*funct)()){
+void initialiseProcess(unsigned int process_index, void (*funct)()){
     if (process_index < MAX_PROCESSES)
     {
         asm(
@@ -65,7 +65,7 @@ void initialise_process(unsigned int process_index, void (*funct)()){
     }
 }
 
-void run_process(unsigned int process_index){
+void runProcess(unsigned int process_index){
   if (process_index < MAX_PROCESSES)
   {
     stack_pointer = process[process_index].sp;
@@ -90,11 +90,8 @@ void run_process(unsigned int process_index){
   }
 }
 
-#pragma vector=PORT1_VECTOR
-__interrupt void PORT1_ISR(void){
-  __bic_SR_register(GIE);   /* Clear GIE bit, disabling interrupts */
-  __delay_cycles(2000000);  /* delay for 1/8 of a second to handle switch bounce */
 
+void processSwitching(){
     asm(
             " push.a R10\n"
             " push.a R9\n"
@@ -124,7 +121,6 @@ __interrupt void PORT1_ISR(void){
             " pop.a R9 \n"
             " pop.a R10 \n"   
     );
-    P1IFG = 0;         /* Clear interrupt flag */
-    __bis_SR_register(GIE); /* Set General Interrupt Enable (GIE) bit */
-    
+
+    LCDMEMCTL |= LCDCLRM | LCDCLRBM;  /* Clear LCD memory */
 }

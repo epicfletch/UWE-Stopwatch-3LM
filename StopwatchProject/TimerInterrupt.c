@@ -1,5 +1,5 @@
 /*F ----------------------------------------------------------------------------
-  NAME :      Clock.c
+  NAME :      TimerInterrupt.c
 
   DESCRIPTION :
               Handles 10ms interrupt from timer and time units rollover
@@ -18,35 +18,35 @@
 
 *F ---------------------------------------------------------------------------*/
 
-#include "Clock.h"
+#include "TimerInterrupt.h"
 
-uint16_t milliSeconds = 0;
-uint8_t seconds = 0;
-uint8_t minutes = 0;
-uint8_t hours = 0;
+uint8_t weekday = 0;
+
+struct time clockTime = {0, 0, 0};
+struct time stopwatchTime = {0, 0, 0};
+struct time alarmTime = {0, 0, 0};
 
 #pragma vector=TIMER0_A0_VECTOR
 __interrupt void Timer0_A0 (void)    // Timer0 A0 1ms interrupt service routine
 {
   __bic_SR_register(GIE); /* Clear GIE bit, disabling interrupts */
 
-  milliSeconds += 10; /* add 10ms to the ms count */
+  clockTime.milliSeconds += 10; /* add 10ms to the ms count */
   /* increment time units and deal with rollovers */
-  if (milliSeconds >= 1000){
-    milliSeconds = 0;
-    seconds++;
-    if (seconds >= 60){
-      seconds = 0;
-      minutes++;
-      if(minutes >= 60){
-        minutes = 0;
-        hours++;
-        if(hours >= 24){
-          hours = 0;
+  if (clockTime.milliSeconds >= 1000){
+   clockTime.milliSeconds = 0;
+    clockTime.seconds++;
+    if (clockTime.seconds >= 60){
+      clockTime.seconds = 0;
+      clockTime.minutes++;
+      if(clockTime.minutes >= 60){
+        clockTime.minutes = 0;
+        clockTime.hours++;
+        if(clockTime.hours >= 24){
+          clockTime.hours = 0;
         }
       }
     }
   }
-
   __bis_SR_register(GIE); /* Set General Interrupt Enable (GIE) bit */
 }

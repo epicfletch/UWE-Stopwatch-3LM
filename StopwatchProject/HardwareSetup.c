@@ -75,6 +75,10 @@ void SetupButtonInterrupts(){
   P1IE  |= START_STOP;                    /* Enable interrupt on P1.2 */
   P1IES |= START_STOP;              /* Trigger on falling edge (button press) */
   P1IFG &= ~START_STOP;             /* Clear any pending interrupt flag */
+
+  P2IE  |= LAP_RESET;                    /* Enable interrupt on P1.2 */
+  P2IES |= LAP_RESET;              /* Trigger on falling edge (button press) */
+  P2IFG &= ~LAP_RESET;             /* Clear any pending interrupt flag */
 }
 
 void SetupTimerInterrupt(){

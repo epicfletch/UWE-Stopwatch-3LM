@@ -17,26 +17,94 @@
 *F ---------------------------------------------------------------------------*/
 
 #include "ClockFSM.h"
-
-
+#include "Chime.h"
+#include "ClockAlarm.h"
+#include "Defines.h"
+#include "msp430fr4133.h"
+#include "Date.h"
 
 uint8_t clockState = CLOCK_NORMAL;
 
 void clockFSM(){
-    LCDCTL0 |= LCD4MUX | LCDON;                                // Turn on LCD, 4-mux selected
     while(1){
         switch (clockState){
-            case CLOCK_NORMAL:
-                updateDisplay();
+            case CLOCK_NORMAL: /* normal clock display */
+                updateClock();
+                /* determine transitions */
+                if(startStopFlag == 1){
+                    clockState = CLOCK_DATE;
+                    startStopFlag = 0;
+                }
+                else if(lapResetFlag == 1){
+                    clockState = CLOCK_ALARM_TIME;
+                    lapResetFlag = 0;
+                }
+                else {\
+                    clockState = CLOCK_NORMAL;
+                }
                 break;
-            case CLOCK_DATE:
-
+            case CLOCK_DATE: /* displays the date */
+                updateDate();
+                /* determine transitions */
+                if(P1IN & START_STOP){
+                    clockState = CLOCK_NORMAL; 
+                }
+                else{
+                    if(modeFlag == 1){
+                        clockState = CLOCK_CHIME_TOGGLE;
+                        modeFlag = 0;
+                    }
+                    clockState = CLOCK_DATE;
+                }
                 break;
-            case CLOCK_ALARM_TIME:
-
+            case CLOCK_ALARM_TIME: /* displays the alarm time */
+                updateAlarmTime();
+                /* determine transitions */
+                if(P2IN & LAP_RESET){
+                    clockState = CLOCK_NORMAL;
+                }
+                else{
+                    if(startStopFlag == 1){
+                        startStopFlag = 0;
+                        clockState = CLOCK_ALARM_TOGGLE;
+                    }
+                    else{
+                        clockState = CLOCK_ALARM_TIME;
+                    }
+                }
                 break;
-            case CLOCK_ALARM_TOGGLE:
-
+            case CLOCK_ALARM_TOGGLE: /* toggles alarm on and off */
+                alarmToggle();
+                /* determine transitions */
+                if(P2IN & LAP_RESET){
+                    clockState = CLOCK_NORMAL;
+                }
+                else {
+                    if(startStopFlag == 1){
+                        startStopFlag = 0;
+                        clockState = CLOCK_ALARM_TOGGLE;
+                    }
+                    else{
+                        clockState = CLOCK_ALARM_TIME;
+                    }
+                }
+                break;
+            case CLOCK_ALARM:
+            
+                break;
+            case CLOCK_CHIME_TOGGLE:
+                chimeToggle();
+                /* determine transitions */
+                if(P1IN & START_STOP){
+                    clockState = CLOCK_NORMAL; 
+                }
+                if(modeFlag == 1){
+                    modeFlag = 0;
+                    clockState = CLOCK_CHIME_TOGGLE;
+                }
+                else{
+                    clockState = CLOCK_DATE;
+                }  
                 break;
             default:
         }
