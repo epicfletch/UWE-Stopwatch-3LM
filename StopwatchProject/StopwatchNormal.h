@@ -17,10 +17,9 @@
 
 #include "Defines.h"
 #include "LCD.h"
-#include "Clock.h"
+#include "TimerInterrupt.h"
+#include "ButtonInterrupts.h"
 
-void updateDisplay();
-
-void clearLCD();
+void updateClock();
 
 #endif
