@@ -14,7 +14,7 @@
 
 *H ---------------------------------------------------------------------------*/
 #include "HardwareSetup.h"
-#include "ProcessSwitching.h"
+#include "ButtonInterrupts.h"
 #include "ClockFSM.h"
 
 void main (void){
@@ -30,9 +30,9 @@ void main (void){
   P1IFG = 0;         /* Clear interrupt flag */
   _BIS_SR(GIE);                   // interrupts enabled (we need to do it here so it gets saved to stack)
 
-  initialise_process(0, clockFSM);
+  initialiseProcess(0, clockFSM);
 
-  run_process(current_process);
+  runProcess(current_process);
 
   _BIS_SR(GIE);                   /* interrupts enabled */
   for (;;)

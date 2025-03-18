@@ -4,7 +4,8 @@
   DESCRIPTION :
               Header file for microcontroller hardware setup 
 
- AUTHOR :     Josh Fletcher
+ AUTHOR :     Joerg Mossbrucker
+              Josh Fletcher
 
 
  INCLUDES :
@@ -38,10 +39,10 @@ extern uint8_t current_process;
 extern uint16_t pc1;
 extern uint16_t pc2;
 
-void initialise_process(unsigned int process_index, void (*funct)());
+void initialiseProcess(unsigned int process_index, void (*funct)());
 
-void run_process(unsigned int process_index);
+void runProcess(unsigned int process_index);
 
-__interrupt void PORT1_ISR(void);
+void ProcessSwitching();
 
 #endif

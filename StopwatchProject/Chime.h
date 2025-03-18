@@ -1,8 +1,8 @@
 /*H ----------------------------------------------------------------------------
-  FILENAME :  ClockNormal.h
+  FILENAME :  Chime.h
 
   DESCRIPTION :
-              Header file for clocks normal state 
+              Header file for clock chime 
 
  AUTHOR :     Josh Fletcher
 
@@ -12,14 +12,17 @@
  CHANGES :
 
 *H ---------------------------------------------------------------------------*/
-#ifndef ClockNormal_H
-#define ClockNormal_H
+#ifndef Chime_H
+#define Chime_H
 
 #include "Defines.h"
 #include "LCD.h"
 #include "TimerInterrupt.h"
 #include "ButtonInterrupts.h"
 
-void updateClock();
+extern int chimeState;
+
+void chimeToggle();
+void chime();
 
 #endif

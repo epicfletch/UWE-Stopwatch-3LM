@@ -39,5 +39,7 @@
 #define CLOCK_DATE 1
 #define CLOCK_ALARM_TIME 2
 #define CLOCK_ALARM_TOGGLE 3
+#define CLOCK_ALARM 4
+#define CLOCK_CHIME_TOGGLE 5
 
 #endif
