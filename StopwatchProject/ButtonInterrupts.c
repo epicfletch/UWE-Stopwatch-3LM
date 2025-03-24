@@ -23,9 +23,19 @@ __interrupt void PORT1_ISR(void){
   __bic_SR_register(GIE);   /* Clear GIE bit, disabling interrupts */
   __delay_cycles(2000000);  /* delay for 1/8 of a second to handle switch bounce */
 
-  startStopFlag = 1;
+  
 
-  //processSwitching();
+  if (~(P1IN & MODE))
+  {
+    processSwitching();
+    modeFlag = 1;
+  }
+  else
+  {
+    startStopFlag = 1;
+  }
+
+  
 
   P1IFG = 0;         /* Clear interrupt flag */
   __bis_SR_register(GIE); /* Set General Interrupt Enable (GIE) bit */

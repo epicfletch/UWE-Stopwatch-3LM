@@ -16,6 +16,8 @@
 #include "HardwareSetup.h"
 #include "ButtonInterrupts.h"
 #include "ClockFSM.h"
+#include "TimeDateSettingFSM.h"
+#include "AlarmSetFSM.h"
 
 void main (void){
   _BIC_SR(GIE);                   /* interrupts disabled */
@@ -31,6 +33,9 @@ void main (void){
   _BIS_SR(GIE);                   // interrupts enabled (we need to do it here so it gets saved to stack)
 
   initialiseProcess(0, clockFSM);
+  initialiseProcess(1, timeDateSettingFSM);
+  initialiseProcess(2, alarmSetFSM);
+ // initialiseProcess(3, stopwatchFSM);
 
   runProcess(current_process);
 

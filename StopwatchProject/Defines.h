@@ -28,10 +28,11 @@
 #define GREEN_LED BIT0  /* P4.0 */
 
 #define START_STOP BIT2 /* P1.2 */
+#define MODE BIT0       /* P1.3 */
 #define LAP_RESET BIT6  /* P2.6 */
-#define MODE 0          /* mode button port to be decided on */
 
-#define MAX_PROCESSES   1
+
+#define MAX_PROCESSES   4
 #define STACK_SIZE      100
 
 /* clock states */
@@ -41,5 +42,21 @@
 #define CLOCK_ALARM_TOGGLE 3
 #define CLOCK_ALARM 4
 #define CLOCK_CHIME_TOGGLE 5
+
+
+/* Time Date Set States */
+#define HOUR_SET 0
+#define MIN_SET 1
+#define WEEKDAY_SET 2
+#define MONTH_SET 3
+#define DAY_SET 4
+#define INCREMENT 5
+
+
+/* Top Level States */
+#define CLOCK 0
+#define TIME_CALENDER 1
+#define ALARM_SET 2
+#define STOPWATCH 3
 
 #endif

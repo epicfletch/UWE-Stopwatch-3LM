@@ -39,7 +39,7 @@ void clockFSM(){
                     clockState = CLOCK_ALARM_TIME;
                     lapResetFlag = 0;
                 }
-                else {\
+                else {
                     clockState = CLOCK_NORMAL;
                 }
                 break;
