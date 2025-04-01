@@ -1,0 +1,32 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Time slicer",
+            "type": "ccs-debug",
+            "request": "launch",
+            "projectInfo": {
+                "name": "Time slicer",
+                "resourceId": "/Time slicer"
+            }
+        },
+        {
+            "name": "Synchro test",
+            "type": "ccs-debug",
+            "request": "launch",
+            "projectInfo": {
+                "name": "Synchro test",
+                "resourceId": "/Synchro test"
+            }
+        },
+        {
+            "name": "StopwatchProject",
+            "type": "ccs-debug",
+            "request": "launch",
+            "projectInfo": {
+                "name": "StopwatchProject",
+                "resourceId": "/StopwatchProject"
+            }
+        }
+    ]
+}
