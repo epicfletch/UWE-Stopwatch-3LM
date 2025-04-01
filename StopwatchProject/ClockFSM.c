@@ -14,6 +14,7 @@
                   b) displays the date
                   c) displays what time the alarm is set to
                   d) toggles on and off the alarm
+                  d) toggles on and off the chime
 *F ---------------------------------------------------------------------------*/
 
 #include "ClockFSM.h"
@@ -89,10 +90,7 @@ void clockFSM(){
                     }
                 }
                 break;
-            case CLOCK_ALARM:
-            
-                break;
-            case CLOCK_CHIME_TOGGLE:
+            case CLOCK_CHIME_TOGGLE: /* toggles chime on and off */
                 chimeToggle();
                 /* determine transitions */
                 if(P1IN & START_STOP){
@@ -106,6 +104,10 @@ void clockFSM(){
                     clockState = CLOCK_DATE;
                 }  
                 break;
+            case CLOCK_ALARM:
+            
+                break;
+
             default:
         }
     }
