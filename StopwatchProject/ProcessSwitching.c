@@ -18,7 +18,7 @@ uint32_t stack_pointer;
 uint32_t program_counter;
 uint32_t saved_sp;
 
-uint8_t current_process = 0;
+uint8_t current_process = 1;
 
 uint16_t pc1;
 uint16_t pc2;

@@ -22,9 +22,7 @@ int modeFlag = 0;
 __interrupt void PORT1_ISR(void){
   __bic_SR_register(GIE);   /* Clear GIE bit, disabling interrupts */
   __delay_cycles(2000000);  /* delay for 1/8 of a second to handle switch bounce */
-
-  
-
+/*
   if (~(P1IN & MODE))
   {
     processSwitching();
@@ -32,8 +30,9 @@ __interrupt void PORT1_ISR(void){
   }
   else
   {
+    */
     startStopFlag = 1;
-  }
+ // }
 
   
 

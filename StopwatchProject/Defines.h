@@ -23,16 +23,15 @@
 #include <stdint.h>
 #include "msp430fr4133.h"
 #include <msp430.h>
-
 #define RED_LED BIT0    /* P1.0 */
 #define GREEN_LED BIT0  /* P4.0 */
 
 #define START_STOP BIT2 /* P1.2 */
-#define MODE BIT0       /* P1.3 */
+#define MODE BIT3      /* P1.3 */
 #define LAP_RESET BIT6  /* P2.6 */
 
 
-#define MAX_PROCESSES   4
+#define MAX_PROCESSES   2
 #define STACK_SIZE      100
 
 /* clock states */

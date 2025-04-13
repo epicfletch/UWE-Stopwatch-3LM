@@ -32,7 +32,7 @@
 *F ---------------------------------------------------------------------------*/
 
 #include "HardwareSetup.h"
-#include "msp430fr4133.h"
+
 
 void DisableWatchdog(){
   WDTCTL = WDTPW | WDTHOLD; /* Disable watchdog timer */
@@ -66,9 +66,9 @@ void SetupGPIO(){
   P1REN |= START_STOP;             /* Enable pull-up/down resistor */
   P1OUT |= START_STOP;             /* Select pull-up resistor */
 
-  P1DIR &= ~MODE;                  /* Set P1.3 as input */
-  P1REN |= MODE;                   /* Enable pull-up/down resistor */
-  P1OUT |= MODE;                  /* Select pull-UP resistor */
+  //P1DIR &= ~MODE;                  /* Set P1.3 as input */
+ // P1REN |= MODE;                   /* Enable pull-up/down resistor */
+ // P1OUT |= MODE;                  /* Select pull-UP resistor */
     
   P2DIR &= ~LAP_RESET;             /* Set P2.6 as input */
   P2REN |= LAP_RESET;              /* Enable pull-up/down resistor */
@@ -82,9 +82,9 @@ void SetupButtonInterrupts(){
   P1IES |= START_STOP;              /* Trigger on falling edge (button press) */
   P1IFG &= ~START_STOP;             /* Clear any pending interrupt flag */
 
-  P1IE  |= MODE;                    /* Enable interrupt on P1.3 */
-  P1IES |= MODE;                    /* Trigger on falling edge (button press) */
-  P1IFG &= ~MODE;                   /* Clear any pending interrupt flag */
+  //P1IE  |= MODE;                    /* Enable interrupt on P1.3 */
+  //P1IES |= MODE;                    /* Trigger on falling edge (button press) */
+  //P1IFG &= ~MODE;                   /* Clear any pending interrupt flag */
 
   P2IE  |= LAP_RESET;               /* Enable interrupt on P1.2 */
   P2IES |= LAP_RESET;               /* Trigger on falling edge (button press) */

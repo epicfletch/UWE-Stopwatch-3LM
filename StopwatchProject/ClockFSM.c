@@ -17,11 +17,6 @@
 *F ---------------------------------------------------------------------------*/
 
 #include "ClockFSM.h"
-#include "Chime.h"
-#include "ClockAlarm.h"
-#include "Defines.h"
-#include "msp430fr4133.h"
-#include "Date.h"
 
 uint8_t clockState = CLOCK_NORMAL;
 

@@ -18,11 +18,8 @@
 
 
 #include "TimeDateSettingFSM.h"
-#include "Defines.h"
 
-
-
-uint8_t TimeDateState = HOUR_SET;
+//uint8_t TimeDateState = HOUR_SET;
 
 void timeDateSettingFSM()
 {
@@ -32,17 +29,101 @@ void timeDateSettingFSM()
         switch (TimeDateState)
         {
             case HOUR_SET:
+                if (startStopFlag)
+                {
+                    incrementVal(HOUR_SET);
+                    startStopFlag = 0;
+                }
+                else if(lapResetFlag)
+                {
+                    TimeDateState = MIN_SET;
+                    lapResetFlag = 0;
+                }
+                else
+                {
+                    flash(HOUR_SET);
+                }
                 break;
             case MIN_SET:
-                break;
+                if (startStopFlag)
+                    {
+                        incrementVal(MIN_SET);
+                        startStopFlag = 0;
+                    }
+                    else if(lapResetFlag)
+                    {
+                        TimeDateState = WEEKDAY_SET;
+                        lapResetFlag = 0;
+                    }
+                    else
+                    {
+                        flash(MIN_SET);
+                    }
+                    break;
             case WEEKDAY_SET:
-                break;
+                if (startStopFlag)
+                    {
+                        incrementVal(HOUR_SET);
+                        startStopFlag = 0;
+                    }
+                    else if(lapResetFlag)
+                    {
+                        TimeDateState = MONTH_SET;
+                        lapResetFlag = 0;
+                    }
+                    else
+                    {
+                        flash(WEEKDAY_SET);
+                    }
+                    break;
             case MONTH_SET:
-                break;
+                if (startStopFlag)
+                    {
+                        incrementVal(MONTH_SET);
+                        startStopFlag = 0;
+                    }
+                    else if(lapResetFlag)
+                    {
+                        TimeDateState = DAY_SET;
+                        lapResetFlag = 0;
+                    }
+                    else
+                    {
+                        flash(MONTH_SET);
+                    }
+                    break;
             case DAY_SET:
-                break;
+                if (startStopFlag)
+                    {
+                        incrementVal(DAY_SET);
+                        startStopFlag = 0;
+                    }
+                    else if(lapResetFlag)
+                    {
+                        TimeDateState = HOUR_SET;
+                        lapResetFlag = 0;
+                    }
+                    else
+                    {
+                        flash(DAY_SET);
+                    }
+                    break;
             default:
-                break;
+            TimeDateState = HOUR_SET;
+            break;
         }
     }
+}
+
+void flash(uint8_t state)
+{
+    LCDMEM[4] = 0;
+   // __delay_cycles(80000);
+   // LCDMEM[4] = 1;
+
+}
+
+void incrementVal(uint8_t state)
+{
+    LCDMEM[4] = 0;
 }

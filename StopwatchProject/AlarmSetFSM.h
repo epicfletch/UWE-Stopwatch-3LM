@@ -17,8 +17,8 @@
 #define AlarmSetFSM_H
 
 #include "Defines.h"
+#include "TimerInterrupt.h"
 
-void alarmSetFSM();
-
+void alarmSetFSM(void);
 
 #endif

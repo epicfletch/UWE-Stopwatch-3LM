@@ -13,10 +13,12 @@
 
 *H ---------------------------------------------------------------------------*/
 
-#include "ProcessSwitching.h"
+
 
 #ifndef ButtonInterrupts_H
 #define ButtonInterrupts_H
+
+#include "ProcessSwitching.h"
 
 extern int startStopFlag;
 extern int lapResetFlag;
