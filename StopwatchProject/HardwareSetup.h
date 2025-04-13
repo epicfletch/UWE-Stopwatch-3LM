@@ -19,7 +19,6 @@
 #define HardwareSetup_H
 
 #include "Defines.h"
-#include "msp430fr4133.h"
 
 void DisableWatchdog();
 
