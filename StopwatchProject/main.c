@@ -13,12 +13,12 @@
  CHANGES :
 
 *H ---------------------------------------------------------------------------*/
-#include "TimeDateSettingFSM.h"
+//#include "TimeDateSettingFSM.h"
 #include "HardwareSetup.h"
 #include "ButtonInterrupts.h"
 #include "ClockFSM.h"
-#include "AlarmSetFSM.h"
-#include "board.h"
+//#include "AlarmSetFSM.h"
+//#include "board.h"
 
 void main (void){
   _BIC_SR(GIE);                   /* interrupts disabled */
