@@ -4,7 +4,7 @@
   DESCRIPTION :
               Header file for Clock 
 
- AUTHOR :     Josh Fletcher
+ AUTHOR :     Josh Fletcher & Ethan Evans
 
 
  INCLUDES :

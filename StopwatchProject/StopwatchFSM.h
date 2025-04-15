@@ -1,11 +1,10 @@
 /*H ----------------------------------------------------------------------------
-  FILENAME :  ClockFSM.h
+  FILENAME :  StopwatchFSM.h
 
   DESCRIPTION :
-              Header file for Clock Finite state machine 
+              Header file for the finite state machine for the stopwatch
 
- AUTHOR :     Josh Fletcher
-
+ AUTHOR :     Ethan Evans
 
  INCLUDES :
 
@@ -17,10 +16,14 @@
 #define Stopwatch_H
 
 #include "Defines.h"
-#include "ClockNormal.h"
+#include "StopwatchZero.h"
+#include "StopwatchRunning.h"
+#include "StopwatchLap.h"
+#include "StopwatchStopped.h"
 
-extern uint8_t clockState;
 
-void clockFSM();
+extern uint8_t stopwatchState;
+
+void stopwatchFSM();
 
 #endif

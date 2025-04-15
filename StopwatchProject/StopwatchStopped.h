@@ -1,8 +1,8 @@
 /*H ----------------------------------------------------------------------------
-  FILENAME :  StopwatchRunning.h
+  FILENAME :  StopwatchStopped.h
 
   DESCRIPTION :
-              Header file for the stopwatch when in its running mode
+              Header file for the stopwatch stopped mode
 
  AUTHOR :     Ethan Evans
 
@@ -12,14 +12,14 @@
  CHANGES :
 
 *H ---------------------------------------------------------------------------*/
-#ifndef StopwatchRunning_H
-#define StopwatchRunning_H
+#ifndef StopwatchStopped_H
+#define StopwatchStopped_H
 
 #include "Defines.h"
 #include "LCD.h"
 #include "TimerInterrupt.h"
 #include "ButtonInterrupts.h"
 
-void StopwatchRun();
+void stopwatchStopped();
 
 #endif

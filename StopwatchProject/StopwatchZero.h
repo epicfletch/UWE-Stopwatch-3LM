@@ -1,10 +1,10 @@
 /*H ----------------------------------------------------------------------------
-  FILENAME :  ClockNormal.h
+  FILENAME :  StopwatchNormal.h
 
   DESCRIPTION :
-              Header file for clocks normal state 
+              Header file for the stopwatch normal mode
 
- AUTHOR :     Josh Fletcher
+ AUTHOR :     Ethan Evans
 
 
  INCLUDES :
@@ -12,14 +12,14 @@
  CHANGES :
 
 *H ---------------------------------------------------------------------------*/
-#ifndef ClockNormal_H
-#define ClockNormal_H
+#ifndef StopwatchNormal_H
+#define StopwatchNormal_H
 
 #include "Defines.h"
 #include "LCD.h"
 #include "TimerInterrupt.h"
 #include "ButtonInterrupts.h"
 
-void updateClock();
+void ZeroStopwatch();
 
 #endif

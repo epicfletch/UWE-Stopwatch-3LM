@@ -1,8 +1,8 @@
 /*F ----------------------------------------------------------------------------
-  NAME :      StopwatchLap.c
+  NAME :      StopwatchStopped.c
 
   DESCRIPTION :
-              Functions to control the stopwatch to be in lap mode where the time is set to what it was when button was pressed but continues to count in the background
+              Functions to control the stopwatch to be in stopped mode where the number shown when button is pressed is retained
 
   FUNCTIONS :
               [1] 
@@ -11,9 +11,9 @@
                   a) 
 *F ---------------------------------------------------------------------------*/
 
-#include "StopwatchLap.h"
+#include "StopwatchStopped.h"
 
-void stopwatchLap(){
+void stopwatchStopped(){
     LCDMEM[4] = digit[stopwatchTime.minutes / 10][0];
     LCDMEM[5] = digit[stopwatchTime.minutes / 10][1];
     LCDMEM[6] = digit[stopwatchTime.minutes % 10][0];

@@ -42,4 +42,10 @@
 #define CLOCK_ALARM 4
 #define CLOCK_CHIME_TOGGLE 5
 
+/* stopwatch states */
+#define STOPWATCH_ZERO 0
+#define STOPWATCH_RUNNING 1
+#define STOPWATCH_LAP 2
+#define STOPWATCH_STOPPED 3
+
 #endif

@@ -1,42 +1,88 @@
 /*F ----------------------------------------------------------------------------
-  NAME :      ClockFSM.c
+  NAME :      StopwatchFSM.c
 
   DESCRIPTION :
-              Controls what state the clock mode is in 
+              Controls what state the stopwatch mode is in 
 
-
+  Author: Ethan Evans
 
   FUNCTIONS :
-              [1] Finite state machine for the clock mode
+              [1] Finite state machine for the stopwatch mode
                 INPUTS :    none
                 RETURNS :   void
-                  a) displays the time as 24hr clock and day of the week 
-                  b) displays the date
-                  c) displays what time the alarm is set to
-                  d) toggles on and off the alarm
+                  a) displays 00:00.00 on stopwatch
+                  b) displays the stopwatch counting up
+                  c) displays the time that it was when button was pressed but continues to count in the background
+                  d) dispkay the time that it was when the button was pressed but does not continue to count in the background
 *F ---------------------------------------------------------------------------*/
 
-#include "Stopwatch.h"
+#include "StopwatchFSM.h"
+#include "Defines.h"
+#include "msp430fr4133.h"
+#include "Date.h"
 
+uint8_t stopwatchState = STOPWATCH_ZERO;
 
-
-uint8_t clockState = CLOCK_NORMAL;
-
-void clockFSM(){
-    LCDCTL0 |= LCD4MUX | LCDON;                                // Turn on LCD, 4-mux selected
+void stopwatchFSM(){
+    LCDCTL0 |= LCD4MUX | LCDON;               
     while(1){
-        switch (clockState){
-            case CLOCK_NORMAL:
-                updateDisplay();
+        switch (stopwatchState){
+            case STOPWATCH_ZERO:
+                ZeroStopwatch();
+                if(startStopFlag == 1){
+                    stopwatchState = STOPWATCH_RUNNING;
+                    startStopFlag = 0;
+                    lapResetFlag = 0;
+                }
+                else {
+                    stopwatchState = STOPWATCH_ZERO;
+                    lapResetFlag = 0;
+                }
                 break;
-            case CLOCK_DATE:
-
+            case STOPWATCH_RUNNING:
+                stopwatchRun();
+                if(startStopFlag == 1){
+                    stopwatchState = STOPWATCH_STOPPED;
+                    stopwatchStopped();
+                    startStopFlag = 0;
+                }
+                else if (lapResetFlag == 1){
+                    stopwatchState = STOPWATCH_LAP;
+                    stopwatchLap();                          //Placed here so it isnt repeatedly called within STOPWATCH_LAP mode
+                    lapResetFlag = 0;
+                }
+                else {
+                    stopwatchState = STOPWATCH_RUNNING;
+                }
                 break;
-            case CLOCK_ALARM_TIME:
-
+            case STOPWATCH_LAP:
+                if(startStopFlag == 1){
+                    stopwatchState = STOPWATCH_STOPPED;
+                    stopwatchStopped();
+                    startStopFlag = 0;
+                }
+                else if (lapResetFlag == 1){
+                    stopwatchLap();
+                    stopwatchState = STOPWATCH_LAP;
+                    lapResetFlag = 0;
+                }
+                else {
+                    stopwatchState = STOPWATCH_LAP;
+                }
                 break;
-            case CLOCK_ALARM_TOGGLE:
-
+            case STOPWATCH_STOPPED:
+                if(startStopFlag == 1){
+                    stopwatchState = STOPWATCH_RUNNING;
+                    startStopFlag = 0;
+                    lapResetFlag = 0;
+                }
+                else if(lapResetFlag == 1){
+                    stopwatchState = STOPWATCH_ZERO;
+                    lapResetFlag = 0;
+                }
+                else {
+                    stopwatchState = STOPWATCH_STOPPED;
+                }
                 break;
             default:
         }
