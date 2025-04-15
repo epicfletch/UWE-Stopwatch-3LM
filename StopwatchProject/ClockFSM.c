@@ -14,19 +14,23 @@
                   b) displays the date
                   c) displays what time the alarm is set to
                   d) toggles on and off the alarm
+                  d) toggles on and off the chime
 *F ---------------------------------------------------------------------------*/
 
 #include "ClockFSM.h"
 #include "Chime.h"
 #include "ClockAlarm.h"
 #include "Defines.h"
-#include "msp430fr4133.h"
-#include "Date.h"
 
 uint8_t clockState = CLOCK_NORMAL;
+int chimeToggleFlag = 0;
 
 void clockFSM(){
     while(1){
+        if(chimeToggleFlag == 1){
+            clockState = CLOCK_CHIME_TOGGLE;
+            chimeToggleFlag = 0;
+        }    
         switch (clockState){
             case CLOCK_NORMAL: /* normal clock display */
                 updateClock();
@@ -39,7 +43,7 @@ void clockFSM(){
                     clockState = CLOCK_ALARM_TIME;
                     lapResetFlag = 0;
                 }
-                else {\
+                else {
                     clockState = CLOCK_NORMAL;
                 }
                 break;
@@ -76,6 +80,7 @@ void clockFSM(){
             case CLOCK_ALARM_TOGGLE: /* toggles alarm on and off */
                 alarmToggle();
                 /* determine transitions */
+                
                 if(P2IN & LAP_RESET){
                     clockState = CLOCK_NORMAL;
                 }
@@ -88,23 +93,34 @@ void clockFSM(){
                         clockState = CLOCK_ALARM_TIME;
                     }
                 }
+
                 break;
-            case CLOCK_ALARM:
-            
-                break;
-            case CLOCK_CHIME_TOGGLE:
+            case CLOCK_CHIME_TOGGLE: /* toggles chime on and off */
                 chimeToggle();
                 /* determine transitions */
-                if(P1IN & START_STOP){
-                    clockState = CLOCK_NORMAL; 
-                }
-                if(modeFlag == 1){
-                    modeFlag = 0;
-                    clockState = CLOCK_CHIME_TOGGLE;
+                if(!(P1IN & START_STOP)){
+                    clockState = CLOCK_DATE;
                 }
                 else{
-                    clockState = CLOCK_DATE;
-                }  
+                    clockState = CLOCK_NORMAL;
+                }
+                break;
+            case CLOCK_ALARM:
+                if(alarmState == 1){
+                    alarm();
+                    if(lapResetFlag == 1){
+                        snooze();
+                    }    
+                }
+                else{}
+                clockState = CLOCK_NORMAL;
+                break;
+            case CLOCK_CHIME:
+                if(chimeState == 1){
+                    chime();
+                }
+                else{}
+                clockState = CLOCK_NORMAL;
                 break;
             default:
         }

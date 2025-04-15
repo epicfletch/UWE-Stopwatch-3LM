@@ -122,5 +122,5 @@ void processSwitching(){
             " pop.a R10 \n"   
     );
 
-    LCDMEMCTL |= LCDCLRM | LCDCLRBM;  /* Clear LCD memory */
+    //LCDMEMCTL |= LCDCLRM | LCDCLRBM;  /* Clear LCD memory */
 }

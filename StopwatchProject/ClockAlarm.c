@@ -12,6 +12,7 @@
 // *F ---------------------------------------------------------------------------*/
 
 #include "ClockAlarm.h"
+#include "TimerInterrupt.h"
 
 int alarmState = 0;
 
@@ -24,7 +25,7 @@ void updateAlarmTime(){
     LCDMEM[7] |= symbols[0][0];
 
     LCDMEM[8] = digit[alarmTime.minutes / 10][0];
-    LCDMEM[9] = digit[alarmTime.minutes / 10][1];
+    LCDMEM[9] = (LCDMEM[9] & 0b00000100) | (digit[alarmTime.minutes / 10][1] & ~0b00000100);
     LCDMEM[10] = digit[alarmTime.minutes % 10][0];
     LCDMEM[11] = digit[alarmTime.minutes % 10][1];
 
@@ -45,9 +46,10 @@ void alarmToggle(){
     }
 }
 void alarm(){
-    /* toggle LED */
+    P4OUT ^= GREEN_LED;               // Set P4.0 on  (Green LED)
+    __delay_cycles(8000000); 
 }
 
 void snooze(){
-    /* add 5 mins to alarm time */
+    snoozeFlag = 1;
 }
