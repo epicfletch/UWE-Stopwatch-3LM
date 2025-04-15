@@ -43,6 +43,6 @@ void initialiseProcess(unsigned int process_index, void (*funct)());
 
 void runProcess(unsigned int process_index);
 
-void ProcessSwitching();
+void processSwitching();
 
 #endif

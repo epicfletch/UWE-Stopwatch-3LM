@@ -21,6 +21,10 @@
 
 extern uint8_t weekday;
 
+extern int i;
+extern int j;
+extern int snoozeFlag;
+
 struct time
 {
   uint16_t milliSeconds;

@@ -18,8 +18,13 @@
 
 #include "Defines.h"
 #include "ClockNormal.h"
+#include "Chime.h"
+#include "ClockAlarm.h"
+#include "Date.h"
 
 extern uint8_t clockState;
+
+extern int chimeToggleFlag;
 
 void clockFSM();
 
