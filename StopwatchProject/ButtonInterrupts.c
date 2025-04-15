@@ -21,7 +21,7 @@ int modeFlag = 0;
 #pragma vector=PORT1_VECTOR
 __interrupt void PORT1_ISR(void){
   __bic_SR_register(GIE);   /* Clear GIE bit, disabling interrupts */
-  __delay_cycles(2000000);  /* delay for 1/8 of a second to handle switch bounce */
+  __delay_cycles(2500000);  /* delay for 1/8 of a second to handle switch bounce */
 
   startStopFlag = 1;
 
@@ -34,7 +34,7 @@ __interrupt void PORT1_ISR(void){
 #pragma vector=PORT2_VECTOR
 __interrupt void PORT2_ISR(void){
   __bic_SR_register(GIE);   /* Clear GIE bit, disabling interrupts */
-  __delay_cycles(2000000);  /* delay for 1/8 of a second to handle switch bounce */
+  __delay_cycles(2500000);  /* delay for 1/8 of a second to handle switch bounce */
 
   lapResetFlag  = 1;
 

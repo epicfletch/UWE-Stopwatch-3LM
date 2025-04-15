@@ -12,8 +12,8 @@
 
 *H ---------------------------------------------------------------------------*/
 
-#ifndef Stopwatch_H
-#define Stopwatch_H
+#ifndef StopwatchFSM_H
+#define StopwatchFSM_H
 
 #include "Defines.h"
 #include "StopwatchZero.h"
