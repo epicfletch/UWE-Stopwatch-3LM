@@ -23,6 +23,8 @@
 #include "Defines.h"
 #include "msp430fr4133.h"
 #include "Date.h"
+#include "ProcessSwitching.h"
+#include "TimeDateSettingFSM.h"
 
 uint8_t clockState = CLOCK_NORMAL;
 
@@ -40,7 +42,7 @@ void clockFSM(){
                     clockState = CLOCK_ALARM_TIME;
                     lapResetFlag = 0;
                 }
-                else {\
+                else {
                     clockState = CLOCK_NORMAL;
                 }
                 break;
@@ -109,6 +111,12 @@ void clockFSM(){
                 break;
 
             default:
+        }
+        if(modeFlag == 1){
+        //processSwitching();
+        //runProcess(current_process);
+        //timeDateSettingFSM();
+        modeFlag = 0;
         }
     }
 }

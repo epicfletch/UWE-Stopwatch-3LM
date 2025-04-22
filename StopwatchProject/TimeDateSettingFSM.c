@@ -19,10 +19,16 @@
 
 #include "TimeDateSettingFSM.h"
 
-//uint8_t TimeDateState = HOUR_SET;
+struct timeSet setTime;
 
 void timeDateSettingFSM()
 {
+    uint8_t TimeDateState = HOUR_SET;
+    setTime.hours = 0;
+    setTime.minutes = 0;
+    setTime.day = 0;
+    setTime.weekDay = 0;
+
     //LCDCTL0 |= LCD4MUX | LCDON;                                // Turn on LCD, 4-mux selected
     while(1)
     {
@@ -31,7 +37,7 @@ void timeDateSettingFSM()
             case HOUR_SET:
                 if (startStopFlag)
                 {
-                    incrementVal(HOUR_SET);
+                    setTime.hours ++;
                     startStopFlag = 0;
                 }
                 else if(lapResetFlag)
@@ -47,7 +53,11 @@ void timeDateSettingFSM()
             case MIN_SET:
                 if (startStopFlag)
                     {
-                        incrementVal(MIN_SET);
+                        setTime.minutes ++;
+                        if (setTime.minutes > 60)
+                        {
+                            setTime.minutes = 1;
+                        }
                         startStopFlag = 0;
                     }
                     else if(lapResetFlag)
@@ -63,7 +73,11 @@ void timeDateSettingFSM()
             case WEEKDAY_SET:
                 if (startStopFlag)
                     {
-                        incrementVal(HOUR_SET);
+                        setTime.weekDay ++;
+                        if (weekday > 7)
+                        {
+                           setTime.weekDay = 1;
+                        }
                         startStopFlag = 0;
                     }
                     else if(lapResetFlag)
@@ -79,7 +93,11 @@ void timeDateSettingFSM()
             case MONTH_SET:
                 if (startStopFlag)
                     {
-                        incrementVal(MONTH_SET);
+                        setTime.month ++;
+                        if (setTime.month > 12)
+                        {
+                            setTime.month = 1;
+                        }
                         startStopFlag = 0;
                     }
                     else if(lapResetFlag)
@@ -95,7 +113,28 @@ void timeDateSettingFSM()
             case DAY_SET:
                 if (startStopFlag)
                     {
-                        incrementVal(DAY_SET);
+                        setTime.day ++;
+                        if (setTime.month == (1 || 3 || 5 || 7 || 8 || 10 || 12))
+                        {
+                            if (setTime.day > 31)
+                            {
+                                setTime.day = 1;
+                            }
+                        }
+                        if (setTime.month == (4 || 6 || 9 || 11))
+                        {
+                            if (setTime.day > 30) 
+                            {
+                                setTime.day = 1;
+                            }
+                        }
+                        if (setTime.month == (2))
+                        {
+                            if (setTime.day > 28)
+                            {
+                                setTime.day = 1;
+                            }
+                        }
                         startStopFlag = 0;
                     }
                     else if(lapResetFlag)
@@ -112,18 +151,18 @@ void timeDateSettingFSM()
             TimeDateState = HOUR_SET;
             break;
         }
+        
+        if(modeFlag == 1){
+            modeFlag = 0;
+        }
     }
 }
 
 void flash(uint8_t state)
 {
     LCDMEM[4] = 0;
-   // __delay_cycles(80000);
-   // LCDMEM[4] = 1;
+    __delay_cycles(80000);
+    LCDMEM[4] = 1;
 
 }
 
-void incrementVal(uint8_t state)
-{
-    LCDMEM[4] = 0;
-}

@@ -18,13 +18,12 @@
 #include "ButtonInterrupts.h"
 #include "Defines.h"
 #include "LCD.h"
-#include "processSwitching.h"
 #include "Date.h"
 #include "HardwareSetup.h"
 #include "board.h"
 #include "msp430fr4133.h"
 #endif
-/*
+
 struct timeSet
 {
   uint8_t month;
@@ -33,8 +32,6 @@ struct timeSet
   uint8_t minutes;
   uint8_t hours;
 };
-*/
-uint8_t TimeDateState;
-void incrementVal(uint8_t state);
+
 void timeDateSettingFSM(void);
 void flash(uint8_t state);

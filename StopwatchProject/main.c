@@ -17,6 +17,7 @@
 #include "ButtonInterrupts.h"
 #include "ClockFSM.h"
 #include "TimeDateSettingFSM.h"
+#include "TOPLevelFSM.h"
 
 void main (void){
   _BIC_SR(GIE);                   /* interrupts disabled */
@@ -29,12 +30,15 @@ void main (void){
   SetupLCD();
 
   P1IFG = 0;         /* Clear interrupt flag */
+  
   _BIS_SR(GIE);                   // interrupts enabled (we need to do it here so it gets saved to stack)
 
+  
+  
   initialiseProcess(0, clockFSM);
   initialiseProcess(1, timeDateSettingFSM);
-
-  runProcess(current_process);
+  runProcess(current_process); 
+  //runProcess(current_process);
 
   _BIS_SR(GIE);                   /* interrupts enabled */
   for (;;)

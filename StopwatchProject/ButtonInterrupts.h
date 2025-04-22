@@ -14,6 +14,7 @@
 *H ---------------------------------------------------------------------------*/
 
 #include "ProcessSwitching.h"
+#include "TopLevelFSM.h"
 
 #ifndef ButtonInterrupts_H
 #define ButtonInterrupts_H
