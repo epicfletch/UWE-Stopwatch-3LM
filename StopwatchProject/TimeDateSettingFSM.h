@@ -33,5 +33,6 @@ struct timeSet
   uint8_t hours;
 };
 
+extern struct timeSet setTime;
 void timeDateSettingFSM(void);
 void flash(uint8_t state);

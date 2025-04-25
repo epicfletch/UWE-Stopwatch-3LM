@@ -18,16 +18,18 @@
 
 
 #include "TimeDateSettingFSM.h"
+#include "LCD.h"
+#include "TimerInterrupt.h"
 
-struct timeSet setTime;
+struct timeSet setTime = {0,0,0,0}
 
 void timeDateSettingFSM()
 {
     uint8_t TimeDateState = HOUR_SET;
-    setTime.hours = 0;
-    setTime.minutes = 0;
-    setTime.day = 0;
-    setTime.weekDay = 0;
+    //setTime.hours = 0;
+    //setTime.minutes = 0;
+    //setTime.day = 0;
+    //setTime.weekDay = 0;
 
     //LCDCTL0 |= LCD4MUX | LCDON;                                // Turn on LCD, 4-mux selected
     while(1)
@@ -38,6 +40,10 @@ void timeDateSettingFSM()
                 if (startStopFlag)
                 {
                     setTime.hours ++;
+                    if (setTime.hours == 24)
+                    {
+                        setTime.hours = 0;
+                    }
                     startStopFlag = 0;
                 }
                 else if(lapResetFlag)
@@ -47,14 +53,24 @@ void timeDateSettingFSM()
                 }
                 else
                 {
-                    flash(HOUR_SET);
+                    LCDMEM[4] = 0;
+                    LCDMEM[5] = 0;
+                    LCDMEM[6] = 0;
+                    LCDMEM[7] = 0;
+                    __delay_cycles(4000000);
+                    LCDMEM[4] = digit[setTime.hours/10][0];
+                    LCDMEM[5] = digit[setTime.hours/10][1];
+                    LCDMEM[6] = digit[setTime.hours%10][0];
+                    LCDMEM[7] = digit[setTime.hours%10][1];
+                    LCDMEM[7] |= symbols[0][0];
+                    __delay_cycles(4000000);
                 }
                 break;
             case MIN_SET:
                 if (startStopFlag)
                     {
                         setTime.minutes ++;
-                        if (setTime.minutes > 60)
+                        if (setTime.minutes == 60)
                         {
                             setTime.minutes = 1;
                         }
@@ -67,16 +83,25 @@ void timeDateSettingFSM()
                     }
                     else
                     {
-                        flash(MIN_SET);
+                        LCDMEM[8] = 0;
+                        LCDMEM[9] = 0;
+                        LCDMEM[10] = 0;
+                        LCDMEM[11] = 0;
+                        __delay_cycles(4000000);
+                        LCDMEM[8] = digit[setTime.minutes/10][0];
+                        LCDMEM[9] = digit[setTime.minutes/10][1];
+                        LCDMEM[10] = digit[setTime.minutes%10][0];
+                        LCDMEM[11] = digit[setTime.minutes%10][1];
+                        __delay_cycles(4000000);
                     }
                     break;
             case WEEKDAY_SET:
                 if (startStopFlag)
                     {
                         setTime.weekDay ++;
-                        if (weekday > 7)
+                        if (setTime.weekDay == 7)
                         {
-                           setTime.weekDay = 1;
+                           setTime.weekDay = 0;
                         }
                         startStopFlag = 0;
                     }
@@ -87,7 +112,16 @@ void timeDateSettingFSM()
                     }
                     else
                     {
-                        flash(WEEKDAY_SET);
+                        LCDMEM[2] = 0;
+                        LCDMEM[3] = 0;
+                        LCDMEM[18] = 0;
+                        LCDMEM[19] = 0;
+                        __delay_cycles(4000000);
+                        LCDMEM[2] = dayOfWeek[setTime.weekDay][0];
+                        LCDMEM[3] = dayOfWeek[setTime.weekDay][1];
+                        LCDMEM[18] = dayOfWeek[setTime.weekDay][2];
+                        LCDMEM[19] = dayOfWeek[setTime.weekDay][3];
+                        __delay_cycles(4000000);
                     }
                     break;
             case MONTH_SET:
@@ -107,7 +141,19 @@ void timeDateSettingFSM()
                     }
                     else
                     {
-                        flash(MONTH_SET);
+                        LCDMEM[4] = 0;
+                        LCDMEM[5] = 0;
+                        LCDMEM[6] = 0;
+                        LCDMEM[7] = 0;
+                        __delay_cycles(4000000);
+                        LCDMEM[4] = digit[setTime.month/10][0];
+                        LCDMEM[5] = digit[setTime.month/10][1];
+                        LCDMEM[6] = digit[setTime.month%10][0];
+                        LCDMEM[7] = digit[setTime.month%10][1];
+                        LCDMEM[7] = digit[setTime.month%10][1];
+                        LCDMEM[7] |= symbols[3][0];
+                        __delay_cycles(4000000);
+                    
                     }
                     break;
             case DAY_SET:
@@ -161,8 +207,15 @@ void timeDateSettingFSM()
 void flash(uint8_t state)
 {
     LCDMEM[4] = 0;
-    __delay_cycles(80000);
-    LCDMEM[4] = 1;
+    LCDMEM[5] = 0;
+    LCDMEM[6] = 0;
+    LCDMEM[7] = 0;
+    __delay_cycles(8000000);
+    LCDMEM[4] = digit[setTime.hours/10][0];
+    LCDMEM[5] = digit[setTime.hours/10][1];
+    LCDMEM[6] = digit[setTime.hours%10][0];
+    LCDMEM[7] = digit[setTime.hours%10][1];
+    __delay_cycles(8000000);
 
 }
 
