@@ -21,8 +21,9 @@
 #include "Date.h"
 #include "HardwareSetup.h"
 #include "board.h"
+#include "TimerInterrupt.h"
 #include "msp430fr4133.h"
-#endif
+
 
 struct timeSet
 {
@@ -33,6 +34,8 @@ struct timeSet
   uint8_t hours;
 };
 
-extern struct timeSet setTime;
+struct timeSet setTime;
 void timeDateSettingFSM(void);
 void flash(uint8_t state);
+
+#endif

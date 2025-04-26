@@ -22,7 +22,7 @@
 
 uint8_t weekday = 0;
 
-struct time clockTime = {setTime.hours, setTime.minutes, 0};
+struct time clockTime = {0, 0, 0};
 struct time stopwatchTime = {0, 0, 0};
 struct time alarmTime = {0, 0, 0};
 

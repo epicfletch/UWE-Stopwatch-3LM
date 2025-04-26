@@ -12,24 +12,25 @@
 // *F ---------------------------------------------------------------------------*/
 
 #include "Date.h"
+#include "TimeDateSettingFSM.h"
 
 void updateDate(){
-    LCDMEM[4] = digit[alarmTime.hours / 10][0];
-    LCDMEM[5] = digit[alarmTime.hours / 10][1];
-    LCDMEM[6] = digit[alarmTime.hours % 10][0];
-    LCDMEM[7] = digit[alarmTime.hours % 10][1];
+    LCDMEM[4] = digit[setTime.month / 10][0];
+    LCDMEM[5] = digit[setTime.month / 10][1];
+    LCDMEM[6] = digit[setTime.month % 10][0];
+    LCDMEM[7] = digit[setTime.month % 10][1];
 
     LCDMEM[7] |= symbols[3][0];
 
-    LCDMEM[8] = digit[alarmTime.minutes / 10][0];
-    LCDMEM[9] = digit[alarmTime.minutes / 10][1];
-    LCDMEM[10] = digit[alarmTime.minutes % 10][0];
-    LCDMEM[11] = digit[alarmTime.minutes % 10][1];
+    LCDMEM[8] = digit[setTime.day / 10][0];
+    LCDMEM[9] = digit[setTime.day / 10][1];
+    LCDMEM[10] = digit[setTime.day % 10][0];
+    LCDMEM[11] = digit[setTime.day % 10][1];
 
     LCDMEM[11] |= symbols[3][0];
 
-    LCDMEM[2] = dayOfWeek[2][0];
-    LCDMEM[3] = dayOfWeek[2][1];
-    LCDMEM[18] = dayOfWeek[2][2];
-    LCDMEM[19] = dayOfWeek[2][3];
+    LCDMEM[2] = dayOfWeek[setTime.weekDay][0];
+    LCDMEM[3] = dayOfWeek[setTime.weekDay][1];
+    LCDMEM[18] = dayOfWeek[setTime.weekDay][2];
+    LCDMEM[19] = dayOfWeek[setTime.weekDay][3];
 }

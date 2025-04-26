@@ -21,8 +21,7 @@
 #include "LCD.h"
 #include "TimerInterrupt.h"
 
-struct timeSet setTime = {0,0,0,0}
-
+//struct timeSet setTime = {0,0,0,0,0};
 void timeDateSettingFSM()
 {
     uint8_t TimeDateState = HOUR_SET;
@@ -48,6 +47,7 @@ void timeDateSettingFSM()
                 }
                 else if(lapResetFlag)
                 {
+                    clockTime.hours = setTime.hours;
                     TimeDateState = MIN_SET;
                     lapResetFlag = 0;
                 }
@@ -78,6 +78,7 @@ void timeDateSettingFSM()
                     }
                     else if(lapResetFlag)
                     {
+                        clockTime.minutes = setTime.minutes;
                         TimeDateState = WEEKDAY_SET;
                         lapResetFlag = 0;
                     }
@@ -150,7 +151,6 @@ void timeDateSettingFSM()
                         LCDMEM[5] = digit[setTime.month/10][1];
                         LCDMEM[6] = digit[setTime.month%10][0];
                         LCDMEM[7] = digit[setTime.month%10][1];
-                        LCDMEM[7] = digit[setTime.month%10][1];
                         LCDMEM[7] |= symbols[3][0];
                         __delay_cycles(4000000);
                     
@@ -190,7 +190,17 @@ void timeDateSettingFSM()
                     }
                     else
                     {
-                        flash(DAY_SET);
+                        LCDMEM[8] = 0;
+                        LCDMEM[9] = 0;
+                        LCDMEM[10] = 0;
+                        LCDMEM[11] = 0;
+                        __delay_cycles(4000000);
+                        LCDMEM[8] = digit[setTime.day/10][0];
+                        LCDMEM[9] = digit[setTime.day/10][1];
+                        LCDMEM[10] = digit[setTime.day%10][0];
+                        LCDMEM[11] = digit[setTime.day%10][1];
+                        LCDMEM[11] |= symbols[3][0];
+                        __delay_cycles(4000000);
                     }
                     break;
             default:
