@@ -26,9 +26,12 @@ __interrupt void PORT1_ISR(void){
   __bic_SR_register(GIE);   /* Clear GIE bit, disabling interrupts */
   __delay_cycles(2500000);  /* delay for 1/8 of a second to handle switch bounce */
 
-<<<<<<< HEAD
-   if ((P1IFG & MODE)) // checking if it was mode button that was pressed on interrupt vector 1
+  if ((P1IFG & MODE))// checking if it was mode button that was pressed on interrupt vector 1
   {
+    if(!(P1IN & START_STOP)){
+      chimeToggleFlag = 1;
+    }
+    else{
       asm(
           " push.a R10\n"
           " push.a R9\n"
@@ -41,41 +44,24 @@ __interrupt void PORT1_ISR(void){
           " movx.a sp,&stack_pointer\n"
       );
 
-  process[current_process].sp = stack_pointer;
-=======
-  if ((P1IFG & MODE))
-  {
-    if(!(P1IN & START_STOP)){
-      chimeToggleFlag = 1;
+      process[current_process].sp = stack_pointer;
+      current_process = (current_process+1) % MAX_PROCESSES;
+      stack_pointer = process[current_process].sp;
+
+      asm(
+              " movx.a &stack_pointer,SP \n"
+              " pop.a R3 \n"
+              " pop.a R4 \n"
+              " pop.a R5 \n"
+              " pop.a R6 \n"
+              " pop.a R7 \n"
+              " pop.a R8 \n"
+              " pop.a R9 \n"
+              " pop.a R10 \n"
+      );
     }
-    else{
-      processSwitching();
-    }
   }
-  else
-  {
-    startStopFlag = 1;
-  }
->>>>>>> 4b1903dc933d8dd1d6f2eaa7959d490bd8c47b87
-
-  current_process = (current_process+1) % MAX_PROCESSES;
-
-  stack_pointer = process[current_process].sp;
-
-  asm(
-          " movx.a &stack_pointer,SP \n"
-          " pop.a R3 \n"
-          " pop.a R4 \n"
-          " pop.a R5 \n"
-          " pop.a R6 \n"
-          " pop.a R7 \n"
-          " pop.a R8 \n"
-          " pop.a R9 \n"
-          " pop.a R10 \n"
-  );
-  }
-  else
-  {
+  else{
     startStopFlag = 1;
   }
   P1IFG = 0;         /* Clear interrupt flag */

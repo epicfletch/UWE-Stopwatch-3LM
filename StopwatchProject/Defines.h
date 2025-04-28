@@ -29,13 +29,9 @@
 #define START_STOP BIT2 /* P1.2 */
 #define MODE BIT3      /* P1.3 */
 #define LAP_RESET BIT6  /* P2.6 */
-<<<<<<< HEAD
-=======
-#define MODE BIT3       /* P1.3 */
->>>>>>> 4b1903dc933d8dd1d6f2eaa7959d490bd8c47b87
 
 
-#define MAX_PROCESSES   3
+#define MAX_PROCESSES   4
 #define STACK_SIZE      100
 
 /* clock states */
@@ -47,7 +43,6 @@
 #define CLOCK_CHIME_TOGGLE 5
 #define CLOCK_CHIME 6
 
-<<<<<<< HEAD
 
 /* Time Date Set States */
 #define HOUR_SET 0
@@ -64,13 +59,6 @@
 #define ALARM_SET 2
 #define STOPWATCH 3
 
-#endif
-=======
-/* stopwatch states */
-#define STOPWATCH_ZERO 0
-#define STOPWATCH_RUNNING 1
-#define STOPWATCH_LAP 2
-#define STOPWATCH_STOPPED 3
 
 /* stopwatch states */
 #define STOPWATCH_ZERO 0
@@ -78,5 +66,10 @@
 #define STOPWATCH_LAP 2
 #define STOPWATCH_STOPPED 3
 
+/* stopwatch states */
+#define STOPWATCH_ZERO 0
+#define STOPWATCH_RUNNING 1
+#define STOPWATCH_LAP 2
+#define STOPWATCH_STOPPED 3
+
 #endif
->>>>>>> 4b1903dc933d8dd1d6f2eaa7959d490bd8c47b87

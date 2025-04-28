@@ -46,6 +46,7 @@
 #include "ClockFSM.h"
 #include "Defines.h"
 #include "StopwatchFSM.h"
+#include "TimeDateSettingFSM.h"
 
 uint8_t weekday = 0;
 
@@ -93,6 +94,8 @@ __interrupt void Timer0_A0 (void)    // Timer0 A0 10ms interrupt service routine
         clockState = CLOCK_CHIME;
         if(clockTime.hours >= 24){
           clockTime.hours = 0;
+          setTime.day++;
+          setTime.weekDay++;
         }
       }
     }

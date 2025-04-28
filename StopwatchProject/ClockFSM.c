@@ -21,13 +21,6 @@
 #include "Chime.h"
 #include "ClockAlarm.h"
 #include "Defines.h"
-<<<<<<< HEAD
-#include "msp430fr4133.h"
-#include "Date.h"
-#include "ProcessSwitching.h"
-#include "TimeDateSettingFSM.h"
-=======
->>>>>>> 4b1903dc933d8dd1d6f2eaa7959d490bd8c47b87
 
 uint8_t clockState = CLOCK_NORMAL;
 int chimeToggleFlag = 0;
@@ -130,12 +123,6 @@ void clockFSM(){
                 clockState = CLOCK_NORMAL;
                 break;
             default:
-        }
-        if(modeFlag == 1){
-        //processSwitching();
-        //runProcess(current_process);
-        //timeDateSettingFSM();
-        modeFlag = 0;
         }
     }
 }

@@ -12,11 +12,7 @@
 // *F ---------------------------------------------------------------------------*/
 
 #include "ClockAlarm.h"
-<<<<<<< HEAD
-#include "TimeDateSettingFSM.h"
-=======
 #include "TimerInterrupt.h"
->>>>>>> 4b1903dc933d8dd1d6f2eaa7959d490bd8c47b87
 
 int alarmState = 0;
 

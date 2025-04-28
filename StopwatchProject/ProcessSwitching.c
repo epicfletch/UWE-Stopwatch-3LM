@@ -93,9 +93,6 @@ void runProcess(unsigned int process_index){
 
 
 void processSwitching(){
-<<<<<<< HEAD
-   
-=======
     asm(
             " push.a R10\n"
             " push.a R9\n"
@@ -125,7 +122,4 @@ void processSwitching(){
             " pop.a R9 \n"
             " pop.a R10 \n"   
     );
-
->>>>>>> 4b1903dc933d8dd1d6f2eaa7959d490bd8c47b87
-    //LCDMEMCTL |= LCDCLRM | LCDCLRBM;  /* Clear LCD memory */
 }

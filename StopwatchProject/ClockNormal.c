@@ -27,16 +27,9 @@ void updateClock(){
     LCDMEM[10] = digit[clockTime.minutes % 10][0];
     LCDMEM[11] = digit[clockTime.minutes % 10][1];
 
-<<<<<<< HEAD
     LCDMEM[2] = dayOfWeek[setTime.weekDay][0];
     LCDMEM[3] = dayOfWeek[setTime.weekDay][1];
     LCDMEM[18] = dayOfWeek[setTime.weekDay][2];
     LCDMEM[19] = dayOfWeek[setTime.weekDay][3];
     //__delay_cycles(8000000);
-=======
-    LCDMEM[2] = dayOfWeek[weekday][0];
-    LCDMEM[3] = dayOfWeek[weekday][1];
-    LCDMEM[18] = dayOfWeek[weekday][2];
-    LCDMEM[19] = dayOfWeek[weekday][3];
->>>>>>> 4b1903dc933d8dd1d6f2eaa7959d490bd8c47b87
 }
