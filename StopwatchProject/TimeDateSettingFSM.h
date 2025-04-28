@@ -36,6 +36,5 @@ struct timeSet
 
 struct timeSet setTime;
 void timeDateSettingFSM(void);
-void flash(uint8_t state);
 
 #endif

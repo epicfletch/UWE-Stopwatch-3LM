@@ -12,6 +12,7 @@
 // *F ---------------------------------------------------------------------------*/
 
 #include "ClockAlarm.h"
+#include "TimeDateSettingFSM.h"
 
 int alarmState = 0;
 
@@ -28,10 +29,10 @@ void updateAlarmTime(){
     LCDMEM[10] = digit[alarmTime.minutes % 10][0];
     LCDMEM[11] = digit[alarmTime.minutes % 10][1];
 
-    LCDMEM[2] = dayOfWeek[2][0];
-    LCDMEM[3] = dayOfWeek[2][1];
-    LCDMEM[18] = dayOfWeek[2][2];
-    LCDMEM[19] = dayOfWeek[2][3];
+    LCDMEM[2] = dayOfWeek[setTime.weekDay][0];
+    LCDMEM[3] = dayOfWeek[setTime.weekDay][1];
+    LCDMEM[18] = dayOfWeek[setTime.weekDay][2];
+    LCDMEM[19] = dayOfWeek[setTime.weekDay][3];
 }
 
 void alarmToggle(){

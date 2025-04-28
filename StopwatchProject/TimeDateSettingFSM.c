@@ -63,6 +63,7 @@ void timeDateSettingFSM()
                     LCDMEM[6] = digit[setTime.hours%10][0];
                     LCDMEM[7] = digit[setTime.hours%10][1];
                     LCDMEM[7] |= symbols[0][0];
+                    LCDMEM[12] = 0;
                     __delay_cycles(4000000);
                 }
                 break;
@@ -142,39 +143,38 @@ void timeDateSettingFSM()
                     }
                     else
                     {
-                        LCDMEM[4] = 0;
-                        LCDMEM[5] = 0;
-                        LCDMEM[6] = 0;
-                        LCDMEM[7] = 0;
+                        LCDMEM[8] = 0;
+                        LCDMEM[9] = 0;
+                        LCDMEM[10] = 0;
+                        LCDMEM[11] = 0;
                         __delay_cycles(4000000);
-                        LCDMEM[4] = digit[setTime.month/10][0];
-                        LCDMEM[5] = digit[setTime.month/10][1];
-                        LCDMEM[6] = digit[setTime.month%10][0];
-                        LCDMEM[7] = digit[setTime.month%10][1];
-                        LCDMEM[7] |= symbols[3][0];
+                        LCDMEM[8] = digit[setTime.month/10][0];
+                        LCDMEM[9] = digit[setTime.month/10][1];
+                        LCDMEM[10] = digit[setTime.month%10][0];
+                        LCDMEM[11] = digit[setTime.month%10][1];
+                        LCDMEM[11] |= symbols[3][0];
                         __delay_cycles(4000000);
-                    
                     }
                     break;
             case DAY_SET:
                 if (startStopFlag)
                     {
                         setTime.day ++;
-                        if (setTime.month == (1 || 3 || 5 || 7 || 8 || 10 || 12))
+                        if ((setTime.month == 1) || (setTime.month == 3) || (setTime.month == 5) || (setTime.month == 7) || (setTime.month == 8) || (setTime.month == 10) || (setTime.month == 12))
                         {
                             if (setTime.day > 31)
                             {
                                 setTime.day = 1;
                             }
                         }
-                        if (setTime.month == (4 || 6 || 9 || 11))
+                        if ((setTime.month == 4) || (setTime.month == 6) || (setTime.month == 9) || (setTime.month == 11))
                         {
                             if (setTime.day > 30) 
                             {
                                 setTime.day = 1;
                             }
                         }
-                        if (setTime.month == (2))
+                        if (setTime.month == 2)
                         {
                             if (setTime.day > 28)
                             {
@@ -190,17 +190,18 @@ void timeDateSettingFSM()
                     }
                     else
                     {
-                        LCDMEM[8] = 0;
-                        LCDMEM[9] = 0;
-                        LCDMEM[10] = 0;
-                        LCDMEM[11] = 0;
+                        LCDMEM[4] = 0;
+                        LCDMEM[5] = 0;
+                        LCDMEM[6] = 0;
+                        LCDMEM[7] = 0;
                         __delay_cycles(4000000);
-                        LCDMEM[8] = digit[setTime.day/10][0];
-                        LCDMEM[9] = digit[setTime.day/10][1];
-                        LCDMEM[10] = digit[setTime.day%10][0];
-                        LCDMEM[11] = digit[setTime.day%10][1];
-                        LCDMEM[11] |= symbols[3][0];
+                        LCDMEM[4] = digit[setTime.day/10][0];
+                        LCDMEM[5] = digit[setTime.day/10][1];
+                        LCDMEM[6] = digit[setTime.day%10][0];
+                        LCDMEM[7] = digit[setTime.day%10][1];
+                        LCDMEM[7] |= symbols[3][0];
                         __delay_cycles(4000000);
+
                     }
                     break;
             default:
@@ -214,18 +215,4 @@ void timeDateSettingFSM()
     }
 }
 
-void flash(uint8_t state)
-{
-    LCDMEM[4] = 0;
-    LCDMEM[5] = 0;
-    LCDMEM[6] = 0;
-    LCDMEM[7] = 0;
-    __delay_cycles(8000000);
-    LCDMEM[4] = digit[setTime.hours/10][0];
-    LCDMEM[5] = digit[setTime.hours/10][1];
-    LCDMEM[6] = digit[setTime.hours%10][0];
-    LCDMEM[7] = digit[setTime.hours%10][1];
-    __delay_cycles(8000000);
-
-}
 

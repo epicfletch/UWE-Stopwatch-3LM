@@ -18,6 +18,16 @@
 
 #include "Defines.h"
 #include "TimerInterrupt.h"
+#include "ClockAlarm.h"
+
+
+struct alarmSet
+{
+  uint8_t minutes;
+  uint8_t hours;
+};
+
+struct alarmSet setAlarm;
 
 void alarmSetFSM(void);
 

@@ -19,6 +19,7 @@
 #include "LCD.h"
 #include "TimerInterrupt.h"
 #include "ButtonInterrupts.h"
+#include "TimeDateSettingFSM.h"
 
 extern int alarmState;
 
