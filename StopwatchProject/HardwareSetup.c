@@ -62,9 +62,13 @@ void SetupGPIO(){
   P4OUT &= ~GREEN_LED;                 /* Set P4.0 off (Green LED) */
 
   /* setup input buttons */
-  P1DIR &= ~START_STOP;             /* Set P1.2 as input */
-  P1REN |= START_STOP;              /* Enable pull-up/down resistor */
-  P1OUT |= START_STOP;              /* Select pull-up resistor */
+  P1DIR &= ~START_STOP;            /* Set P1.2 as input */
+  P1REN |= START_STOP;             /* Enable pull-up/down resistor */
+  P1OUT |= START_STOP;             /* Select pull-up resistor */
+
+  P1DIR &= ~MODE;                  /* Set P1.3 as input */
+  P1REN |= MODE;                   /* Enable pull-up/down resistor */
+  P1OUT |= MODE;                   /* Select pull-UP resistor */
 
   P1DIR &= ~MODE;                  /* Set P1.3 as input */
   P1REN |= MODE;                   /* Enable pull-up/down resistor */
@@ -76,15 +80,23 @@ void SetupGPIO(){
 }
 
 void SetupButtonInterrupts(){
-  P1IE  |= START_STOP;                    /* Enable interrupt on P1.2 */
-  P1IES |= START_STOP;              /* Trigger on falling edge (button press) */
-  P1IFG &= ~START_STOP;             /* Clear any pending interrupt flag */
+  P1IE  |= START_STOP;             /* Enable interrupt on P1.2 */
+  P1IES |= START_STOP;             /* Trigger on falling edge (button press) */
+  P1IFG &= ~START_STOP;            /* Clear any pending interrupt flag */
 
+<<<<<<< HEAD
   P1IE  |= MODE;                    /* Enable interrupt on P1.3 */
   P1IES |= MODE;                    /* Trigger on falling edge (button press) */
   P1IFG &= ~MODE;                   /* Clear any pending interrupt flag */
 
   P2IE  |= LAP_RESET;                    /* Enable interrupt on P1.2 */
+=======
+  P1IE  |= MODE;                   /* Enable interrupt on P1.3 */
+  P1IES |= MODE;                   /* Trigger on falling edge (button press) */
+  P1IFG &= ~MODE;                  /* Clear any pending interrupt flag */
+
+  P2IE  |= LAP_RESET;              /* Enable interrupt on P2.6 */
+>>>>>>> 4b1903dc933d8dd1d6f2eaa7959d490bd8c47b87
   P2IES |= LAP_RESET;              /* Trigger on falling edge (button press) */
   P2IFG &= ~LAP_RESET;             /* Clear any pending interrupt flag */
 }

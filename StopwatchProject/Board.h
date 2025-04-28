@@ -245,4 +245,3 @@
 #endif // __MSP430FR2355__
 
 #endif // __BOARD_H__
-

@@ -13,16 +13,20 @@
 *F ---------------------------------------------------------------------------*/
 
 #include "ButtonInterrupts.h"
+#include "ClockFSM.h"
+#include "Defines.h"
 
 int startStopFlag = 0;
 int lapResetFlag = 0;
 int modeFlag = 0;
 
+
 #pragma vector=PORT1_VECTOR
 __interrupt void PORT1_ISR(void){
   __bic_SR_register(GIE);   /* Clear GIE bit, disabling interrupts */
-  __delay_cycles(2000000);  /* delay for 1/8 of a second to handle switch bounce */
+  __delay_cycles(2500000);  /* delay for 1/8 of a second to handle switch bounce */
 
+<<<<<<< HEAD
    if ((P1IFG & MODE)) // checking if it was mode button that was pressed on interrupt vector 1
   {
       asm(
@@ -38,6 +42,21 @@ __interrupt void PORT1_ISR(void){
       );
 
   process[current_process].sp = stack_pointer;
+=======
+  if ((P1IFG & MODE))
+  {
+    if(!(P1IN & START_STOP)){
+      chimeToggleFlag = 1;
+    }
+    else{
+      processSwitching();
+    }
+  }
+  else
+  {
+    startStopFlag = 1;
+  }
+>>>>>>> 4b1903dc933d8dd1d6f2eaa7959d490bd8c47b87
 
   current_process = (current_process+1) % MAX_PROCESSES;
 
@@ -66,7 +85,7 @@ __interrupt void PORT1_ISR(void){
 #pragma vector=PORT2_VECTOR
 __interrupt void PORT2_ISR(void){
   __bic_SR_register(GIE);   /* Clear GIE bit, disabling interrupts */
-  __delay_cycles(2000000);  /* delay for 1/8 of a second to handle switch bounce */
+  __delay_cycles(2500000);  /* delay for 1/8 of a second to handle switch bounce */
 
   lapResetFlag  = 1;
 

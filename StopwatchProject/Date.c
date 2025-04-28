@@ -22,10 +22,17 @@ void updateDate(){
 
     LCDMEM[7] |= symbols[3][0];
 
+<<<<<<< HEAD
     LCDMEM[8] = digit[setTime.day / 10][0];
     LCDMEM[9] = digit[setTime.day / 10][1];
     LCDMEM[10] = digit[setTime.day % 10][0];
     LCDMEM[11] = digit[setTime.day % 10][1];
+=======
+    LCDMEM[8] = digit[alarmTime.minutes / 10][0];
+    LCDMEM[9] = (LCDMEM[9] & 0b00000100) | (digit[alarmTime.minutes / 10][1] & ~0b00000100);
+    LCDMEM[10] = digit[alarmTime.minutes % 10][0];
+    LCDMEM[11] = digit[alarmTime.minutes % 10][1];
+>>>>>>> 4b1903dc933d8dd1d6f2eaa7959d490bd8c47b87
 
     LCDMEM[11] |= symbols[3][0];
 

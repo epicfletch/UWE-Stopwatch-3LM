@@ -4,7 +4,7 @@
   DESCRIPTION :
               Header file for Clock 
 
- AUTHOR :     Josh Fletcher
+ AUTHOR :     Josh Fletcher & Ethan Evans
 
 
  INCLUDES :
@@ -20,6 +20,10 @@
 #include "TimeDateSettingFSM.h"
 
 extern uint8_t weekday;
+
+extern int i;
+extern int j;
+extern int snoozeFlag;
 
 struct time
 {
