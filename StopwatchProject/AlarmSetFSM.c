@@ -23,6 +23,10 @@ void alarmSetFSM()
                 }
                 else
                 {
+                    LCDMEM[8] = digit[setAlarm.minutes/10][0];
+                    LCDMEM[9] = digit[setAlarm.minutes/10][1];
+                    LCDMEM[10] = digit[setAlarm.minutes%10][0];
+                    LCDMEM[11] = digit[setAlarm.minutes%10][1];
                     LCDMEM[4] = 0;
                     LCDMEM[5] = 0;
                     LCDMEM[6] = 0;
