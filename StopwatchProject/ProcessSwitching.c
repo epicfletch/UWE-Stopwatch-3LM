@@ -25,7 +25,7 @@ uint16_t pc1;
 uint16_t pc2;
 
 
-void initialiseProcess(unsigned int process_index, void (*funct)()){
+void InitialiseProcess(unsigned int process_index, void (*funct)()){
     if (process_index < MAX_PROCESSES)
     {
         asm(
@@ -66,7 +66,7 @@ void initialiseProcess(unsigned int process_index, void (*funct)()){
     }
 }
 
-void runProcess(unsigned int process_index){
+void RunProcess(unsigned int process_index){
   if (process_index < MAX_PROCESSES)
   {
     stack_pointer = process[process_index].sp;
@@ -92,7 +92,7 @@ void runProcess(unsigned int process_index){
 }
 
 
-void processSwitching(){
+void ProcessSwitching(){
     asm(
             " push.a R10\n"
             " push.a R9\n"

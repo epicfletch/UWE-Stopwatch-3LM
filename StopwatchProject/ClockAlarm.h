@@ -23,9 +23,9 @@
 
 extern int alarmState;
 
-void updateAlarmTime();
-void alarmToggle();
-void alarm();
-void snooze();
+void UpdateAlarmTime();
+void AlarmToggle();
+void Alarm();
+void Snooze();
 
 #endif

@@ -15,6 +15,8 @@
                   c) displays what time the alarm is set to
                   d) toggles on and off the alarm
                   d) toggles on and off the chime
+                  e) alarm is active 
+                  f) chime is active
 *F ---------------------------------------------------------------------------*/
 
 #include "ClockFSM.h"
@@ -25,7 +27,7 @@
 uint8_t clockState = CLOCK_NORMAL;
 int chimeToggleFlag = 0;
 
-void clockFSM(){
+void ClockFSM(){
     while(1){
         if(chimeToggleFlag == 1){
             clockState = CLOCK_CHIME_TOGGLE;
@@ -33,7 +35,7 @@ void clockFSM(){
         }    
         switch (clockState){
             case CLOCK_NORMAL: /* normal clock display */
-                updateClock();
+                UpdateClock();
                 /* determine transitions */
                 if(startStopFlag == 1){
                     clockState = CLOCK_DATE;
@@ -48,7 +50,7 @@ void clockFSM(){
                 }
                 break;
             case CLOCK_DATE: /* displays the date */
-                updateDate();
+                UpdateDate();
                 /* determine transitions */
                 if(P1IN & START_STOP){
                     clockState = CLOCK_NORMAL; 
@@ -62,7 +64,7 @@ void clockFSM(){
                 }
                 break;
             case CLOCK_ALARM_TIME: /* displays the alarm time */
-                updateAlarmTime();
+                UpdateAlarmTime();
                 /* determine transitions */
                 if(P2IN & LAP_RESET){
                     clockState = CLOCK_NORMAL;
@@ -78,7 +80,7 @@ void clockFSM(){
                 }
                 break;
             case CLOCK_ALARM_TOGGLE: /* toggles alarm on and off */
-                alarmToggle();
+                AlarmToggle();
                 /* determine transitions */
                 
                 if(P2IN & LAP_RESET){
@@ -96,7 +98,7 @@ void clockFSM(){
 
                 break;
             case CLOCK_CHIME_TOGGLE: /* toggles chime on and off */
-                chimeToggle();
+                ChimeToggle();
                 /* determine transitions */
                 if(!(P1IN & START_STOP)){
                     clockState = CLOCK_DATE;
@@ -107,9 +109,10 @@ void clockFSM(){
                 break;
             case CLOCK_ALARM:
                 if(alarmState == 1){
-                    alarm();
+                    Alarm();
                     if(lapResetFlag == 1){
-                        snooze();
+                        Snooze();
+                        clockState = CLOCK_NORMAL;
                     }    
                 }
                 else{}
@@ -117,7 +120,7 @@ void clockFSM(){
                 break;
             case CLOCK_CHIME:
                 if(chimeState == 1){
-                    chime();
+                    Chime();
                 }
                 else{}
                 clockState = CLOCK_NORMAL;

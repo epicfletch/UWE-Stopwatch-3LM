@@ -14,7 +14,7 @@
 #include "ClockNormal.h"
 #include "Chime.h"
 
-void updateClock(){
+void UpdateClock(){
     LCDMEM[4] = digit[clockTime.hours / 10][0];
     LCDMEM[5] = digit[clockTime.hours / 10][1];
     LCDMEM[6] = digit[clockTime.hours % 10][0];

@@ -22,7 +22,7 @@
 
 extern int chimeState;
 
-void chimeToggle();
-void chime();
+void ChimeToggle();
+void Chime();
 
 #endif

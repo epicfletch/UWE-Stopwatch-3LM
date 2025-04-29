@@ -5,16 +5,16 @@
 //               Functions to control the behaviour of the date
 
 //   FUNCTIONS :
-//               [1] 
+//               [1] updateDate
 //                 INPUTS :    none
 //                 RETURNS :   void
-//                   a) 
+//                   a) sets the LCD display to the set date
 // *F ---------------------------------------------------------------------------*/
 
 #include "Date.h"
 #include "TimeDateSettingFSM.h"
 
-void updateDate(){
+void UpdateDate(){
     LCDMEM[4] = digit[setTime.month / 10][0];
     LCDMEM[5] = digit[setTime.month / 10][1];
     LCDMEM[6] = digit[setTime.month % 10][0];
