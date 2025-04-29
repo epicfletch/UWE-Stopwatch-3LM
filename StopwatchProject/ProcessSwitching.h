@@ -39,10 +39,10 @@ extern uint8_t current_process;
 extern uint16_t pc1;
 extern uint16_t pc2;
 
-void initialiseProcess(unsigned int process_index, void (*funct)());
+void InitialiseProcess(unsigned int process_index, void (*funct)());
 
-void runProcess(unsigned int process_index);
+void RunProcess(unsigned int process_index);
 
-void processSwitching();
+void ProcessSwitching();
 
 #endif

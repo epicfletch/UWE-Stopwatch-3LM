@@ -20,6 +20,6 @@
 #include "TimerInterrupt.h"
 #include "ButtonInterrupts.h"
 
-void updateClock();
+void UpdateClock();
 
 #endif

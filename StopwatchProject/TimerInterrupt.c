@@ -1,28 +1,10 @@
 /*F ----------------------------------------------------------------------------
-  NAME :      TimerInterrupt.c
-
-  DESCRIPTION :
-              Handles 10ms interrupt from timer and time units rollover
-
-  FUNCTIONS :
-              [1] Timer A0 interrupt handler
-                INPUTS :    none
-                RETURNS :   void
-                  a) disable interrupts
-                  b) increment time by 10ms
-                  c) handle rollover for milliseconds
-                  d) handle rollover for seconds
-                  e) handle rollover for minutees
-                  f) handle rollover for hours
-                  g) enable interrupts
-
-*F ---------------------------------------------------------------------------*/
-/*F ----------------------------------------------------------------------------
  
   NAME        : TimerInterrupt.c
  
   DESCRIPTION :
       Handles 10ms interrupt from timer and updates clock and stopwatch time.
+      handles alarm and snooze
       Manages time unit rollovers and adjusts stopwatch behavior based on its
       current state.
  
@@ -35,6 +17,7 @@
             a) Disable interrupts
             b) Increment clock time by 10ms
             c) Handle rollover for milliseconds, seconds, minutes, and hours
+            d) handles alarm and snooze time
             d) Update stopwatch time if in RUNNING or LAP state
             e) Reset stopwatch if in ZERO state
             f) Handle rollover for stopwatch time units

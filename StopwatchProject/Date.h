@@ -21,6 +21,6 @@
 #include "ButtonInterrupts.h"
 #include "TimeDateSettingFSM.h"
 
-void updateDate();
+void UpdateDate();
 
 #endif

@@ -1,22 +1,35 @@
-// /*F ----------------------------------------------------------------------------
-//   NAME :      ClockAlarm.c
+/*F ----------------------------------------------------------------------------
+  NAME :      ClockAlarm.c
 
-//   DESCRIPTION :
-//               Functions to control the behaviour of the clock in its normal state
+  DESCRIPTION :
+              Functions to control the behaviour of the alarm 
 
-//   FUNCTIONS :
-//               [1] 
-//                 INPUTS :    none
-//                 RETURNS :   void
-//                   a) 
-// *F ---------------------------------------------------------------------------*/
+  FUNCTIONS :
+              [1] UpdateAlarmTime
+                INPUTS :    none
+                RETURNS :   void
+                  a) sets the LCD display to the set alarm time
+              [2] alarmToggle
+                INPUTS :    none
+                RETURNS :   void
+                  a) toggles the alarm symbol 
+              [3] Alarm
+                INPUTS :    none
+                RETURNS :   void
+                  a) toogles the green LED on or off to simulate the alarm
+              [4] snooze
+                INPUTS :    none
+                RETURNS :   void
+                  a) sets snooze flag
+                
+*F ---------------------------------------------------------------------------*/
 
 #include "ClockAlarm.h"
 #include "TimerInterrupt.h"
 
 int alarmState = 0;
 
-void updateAlarmTime(){
+void UpdateAlarmTime(){
     LCDMEM[4] = digit[alarmTime.hours / 10][0];
     LCDMEM[5] = digit[alarmTime.hours / 10][1];
     LCDMEM[6] = digit[alarmTime.hours % 10][0];
@@ -35,7 +48,7 @@ void updateAlarmTime(){
     LCDMEM[19] = dayOfWeek[setTime.weekDay][3];
 }
 
-void alarmToggle(){
+void AlarmToggle(){
     if(alarmState == 0){
         alarmState = 1;
         LCDMEM[12] = symbols[1][0];
@@ -45,11 +58,11 @@ void alarmToggle(){
         LCDMEM[12] = 0;
     }
 }
-void alarm(){
+void Alarm(){
     P4OUT ^= GREEN_LED;               // Set P4.0 on  (Green LED)
     __delay_cycles(8000000); 
 }
 
-void snooze(){
+void Snooze(){
     snoozeFlag = 1;
 }
