@@ -53,6 +53,10 @@ void timeDateSettingFSM()
                 }
                 else
                 {
+                    LCDMEM[8] = digit[setTime.minutes/10][0];
+                    LCDMEM[9] = digit[setTime.minutes/10][1];
+                    LCDMEM[10] = digit[setTime.minutes%10][0];
+                    LCDMEM[11] = digit[setTime.minutes%10][1];
                     LCDMEM[4] = 0;
                     LCDMEM[5] = 0;
                     LCDMEM[6] = 0;
@@ -143,6 +147,10 @@ void timeDateSettingFSM()
                     }
                     else
                     {
+                        LCDMEM[4] = digit[setTime.day/10][0];
+                        LCDMEM[5] = digit[setTime.day/10][1];
+                        LCDMEM[6] = digit[setTime.day%10][0];
+                        LCDMEM[7] = digit[setTime.day%10][1];
                         LCDMEM[8] = 0;
                         LCDMEM[9] = 0;
                         LCDMEM[10] = 0;
