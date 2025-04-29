@@ -7,13 +7,12 @@
 
 
   FUNCTIONS :
-              [1] Finite state machine for the clock mode
+              [1] Finite state machine for the time date setting
                 INPUTS :    none
                 RETURNS :   void
-                  a) displays the time as 24hr clock and day of the week 
-                  b) displays the date
-                  c) displays what time the alarm is set to
-                  d) toggles on and off the alarm
+                  a) allows selection of digits to set hour/min/day/month/date
+                  b) increments setTime structure elements and assigns to clockTime
+                  c) flashes selected digits
 *F ---------------------------------------------------------------------------*/
 
 

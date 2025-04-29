@@ -1,3 +1,21 @@
+/*F ----------------------------------------------------------------------------
+  NAME :      AlarmSettingFSM.c
+
+  DESCRIPTION :
+              Controls what state the Alarm setting mode is in 
+
+
+
+  FUNCTIONS :
+              [1] Finite state machine for the alarm setting
+                INPUTS :    none
+                RETURNS :   void
+                  a) allows selection of digits to set hour/min
+                  b) increments setTime structure elements and assigns to alarmTime
+                  c) flashes selected digits
+*F ---------------------------------------------------------------------------*/
+
+
 #include "AlarmSetFSM.h"
 void alarmSetFSM()
 {
