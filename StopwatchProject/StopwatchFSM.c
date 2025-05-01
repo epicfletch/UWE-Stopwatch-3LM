@@ -48,7 +48,7 @@ void stopwatchFSM(){
                 }
                 else if (lapResetFlag == 1){
                     stopwatchState = STOPWATCH_LAP;
-                    stopwatchLap();                          //Placed here so it isnt repeatedly called within STOPWATCH_LAP mode
+                    stopwatchLapValue();                         //Placed here so it isnt repeatedly called within STOPWATCH_LAP mode
                     lapResetFlag = 0;
                 }
                 else {
@@ -62,12 +62,13 @@ void stopwatchFSM(){
                     startStopFlag = 0;
                 }
                 else if (lapResetFlag == 1){
-                    stopwatchLap();
+                    stopwatchLapValue();
                     stopwatchState = STOPWATCH_LAP;
                     lapResetFlag = 0;
                 }
                 else {
                     stopwatchState = STOPWATCH_LAP;
+                    stopwatchLap();
                 }
                 break;
             case STOPWATCH_STOPPED:
