@@ -18,12 +18,13 @@
 
 #include "StopwatchFSM.h"
 #include "Defines.h"
+#include "StopwatchRunning.h"
 #include "msp430fr4133.h"
 #include "Date.h"
 
 uint8_t stopwatchState = STOPWATCH_ZERO;
 
-void stopwatchFSM(){
+void StopwatchFSM(){
     LCDCTL0 |= LCD4MUX | LCDON;               
     while(1){
         switch (stopwatchState){
@@ -40,7 +41,7 @@ void stopwatchFSM(){
                 }
                 break;
             case STOPWATCH_RUNNING:
-                stopwatchRun();
+                StopwatchRun();
                 if(startStopFlag == 1){
                     stopwatchState = STOPWATCH_STOPPED;
                     stopwatchStopped();
@@ -48,7 +49,7 @@ void stopwatchFSM(){
                 }
                 else if (lapResetFlag == 1){
                     stopwatchState = STOPWATCH_LAP;
-                    stopwatchLapValue();                         //Placed here so it isnt repeatedly called within STOPWATCH_LAP mode
+                    StopwatchLapValue();                         //Placed here so it isnt repeatedly called within STOPWATCH_LAP mode
                     lapResetFlag = 0;
                 }
                 else {
@@ -58,17 +59,17 @@ void stopwatchFSM(){
             case STOPWATCH_LAP:
                 if(startStopFlag == 1){
                     stopwatchState = STOPWATCH_STOPPED;
-                    stopwatchStopped();
+                    StopwatchStopped();
                     startStopFlag = 0;
                 }
                 else if (lapResetFlag == 1){
-                    stopwatchLapValue();
+                    StopwatchLapValue();
                     stopwatchState = STOPWATCH_LAP;
                     lapResetFlag = 0;
                 }
                 else {
                     stopwatchState = STOPWATCH_LAP;
-                    stopwatchLap();
+                    StopwatchLap();
                 }
                 break;
             case STOPWATCH_STOPPED:

@@ -18,7 +18,7 @@ unsigned char minutesOne, minutesTwo, minutesThree, minutesFour;
 unsigned char secondsOne, secondsTwo, secondsThree, secondsFour;
 unsigned char millisecondsOne, millisecondsTwo, millisecondsThree, millisecondsFour;
  
-void stopwatchLapValue(){
+void StopwatchLapValue(){
     minutesOne = digit[stopwatchTime.minutes / 10][0];
     minutesTwo = digit[stopwatchTime.minutes / 10][1];
     minutesThree = digit[stopwatchTime.minutes % 10][0];
@@ -35,7 +35,7 @@ void stopwatchLapValue(){
     millisecondsFour = digit[(stopwatchTime.milliSeconds % 100) / 10][1];
 }
  
-void stopwatchLap(){
+void StopwatchLap(){
     LCDMEM[4] = minutesOne;
     LCDMEM[5] = minutesTwo;
     LCDMEM[6] = minutesThree;
