@@ -26,6 +26,6 @@ extern uint8_t clockState;
 
 extern int chimeToggleFlag;
 
-void clockFSM();
+void ClockFSM();
 
 #endif

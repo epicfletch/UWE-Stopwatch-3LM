@@ -37,10 +37,10 @@ void main (void){
 
   
   
-  InitialiseProcess(0, clockFSM);
-  InitialiseProcess(1, timeDateSettingFSM);
-  InitialiseProcess(2, alarmSetFSM);
-  InitialiseProcess(3, stopwatchFSM);
+  InitialiseProcess(0, ClockFSM);
+  InitialiseProcess(1, TimeDateSettingFSM);
+  InitialiseProcess(2, AlarmSetFSM);
+  InitialiseProcess(3, StopwatchFSM);
   RunProcess(current_process); 
 
   _BIS_SR(GIE);                   /* interrupts enabled */

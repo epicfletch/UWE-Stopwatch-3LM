@@ -27,7 +27,7 @@
 uint8_t clockState = CLOCK_NORMAL;
 int chimeToggleFlag = 0;
 
-void clockFSM(){
+void ClockFSM(){
     while(1){
         if(chimeToggleFlag == 1){
             clockState = CLOCK_CHIME_TOGGLE;

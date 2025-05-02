@@ -44,7 +44,6 @@ void StopwatchFSM(){
                 StopwatchRun();
                 if(startStopFlag == 1){
                     stopwatchState = STOPWATCH_STOPPED;
-                    stopwatchStopped();
                     startStopFlag = 0;
                 }
                 else if (lapResetFlag == 1){
@@ -59,7 +58,6 @@ void StopwatchFSM(){
             case STOPWATCH_LAP:
                 if(startStopFlag == 1){
                     stopwatchState = STOPWATCH_STOPPED;
-                    StopwatchStopped();
                     startStopFlag = 0;
                 }
                 else if (lapResetFlag == 1){
@@ -84,6 +82,7 @@ void StopwatchFSM(){
                 }
                 else {
                     stopwatchState = STOPWATCH_STOPPED;
+                    StopwatchStopped();
                 }
                 break;
             default:
