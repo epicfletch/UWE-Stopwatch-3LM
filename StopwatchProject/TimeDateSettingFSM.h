@@ -35,6 +35,6 @@ struct timeSet
 };
 
 struct timeSet setTime;
-void timeDateSettingFSM(void);
+void TimeDateSettingFSM(void);
 
 #endif

@@ -24,6 +24,6 @@
 
 extern uint8_t stopwatchState;
 
-void stopwatchFSM();
+void StopwatchFSM();
 
 #endif

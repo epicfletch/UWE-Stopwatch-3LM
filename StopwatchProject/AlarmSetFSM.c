@@ -1,5 +1,5 @@
 #include "AlarmSetFSM.h"
-void alarmSetFSM()
+void AlarmSetFSM()
 {
     uint8_t alarmState = 0;   // variable for the alarm state
     while(1){

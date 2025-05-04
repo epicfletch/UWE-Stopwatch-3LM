@@ -22,7 +22,7 @@
 #include "TimerInterrupt.h"
 
 //struct timeSet setTime = {0,0,0,0,0};
-void timeDateSettingFSM()
+void TimeDateSettingFSM()
 {
     uint8_t TimeDateState = HOUR_SET;
     //setTime.hours = 0;

@@ -59,7 +59,7 @@ void AlarmToggle(){
     }
 }
 void Alarm(){
-    P4OUT ^= GREEN_LED;               // Set P4.0 on  (Green LED)
+    P4OUT ^= RED_LED;          
     __delay_cycles(8000000); 
 }
 

@@ -74,7 +74,7 @@ __interrupt void Timer0_A0 (void)    // Timer0 A0 10ms interrupt service routine
       if(clockTime.minutes >= 60){
         clockTime.minutes = 0;
         clockTime.hours++;
-        clockState = CLOCK_CHIME;
+        chimeFlag = 1;
         if(clockTime.hours >= 24){
           clockTime.hours = 0;
           setTime.day++;

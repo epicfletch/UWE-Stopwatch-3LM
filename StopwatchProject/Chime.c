@@ -26,7 +26,11 @@ void ChimeToggle(){
     }
 }
 void Chime(){
-    P4OUT |= GREEN_LED;               // Set P4.0 on  (Green LED)
-    __delay_cycles(16000000); 
-    P4OUT &= ~GREEN_LED;               // Set P4.0 off (Green LED)
+    int k = 0;
+    for(k = 0; k < 5; k++){
+        P4OUT |= GREEN_LED;               // Set P4.0 on  (Green LED)
+        __delay_cycles(8000000); 
+        P4OUT &= ~GREEN_LED;               // Set P4.0 off (Green LED)
+        __delay_cycles(8000000); 
+    }
 }

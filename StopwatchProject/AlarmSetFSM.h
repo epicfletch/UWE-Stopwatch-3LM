@@ -29,6 +29,6 @@ struct alarmSet
 
 struct alarmSet setAlarm;
 
-void alarmSetFSM(void);
+void AlarmSetFSM(void);
 
 #endif

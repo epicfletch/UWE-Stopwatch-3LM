@@ -23,7 +23,7 @@
 
 uint8_t stopwatchState = STOPWATCH_ZERO;
 
-void stopwatchFSM(){
+void StopwatchFSM(){
     LCDCTL0 |= LCD4MUX | LCDON;               
     while(1){
         switch (stopwatchState){
