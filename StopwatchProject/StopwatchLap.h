@@ -20,6 +20,7 @@
 #include "TimerInterrupt.h"
 #include "ButtonInterrupts.h"
 
-void stopwatchLap();
+void StopwatchLapValue();
+void StopwatchLap();
 
 #endif

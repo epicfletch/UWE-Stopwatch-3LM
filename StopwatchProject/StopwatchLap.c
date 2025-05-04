@@ -13,24 +13,46 @@
 
 #include "StopwatchLap.h"
 
-void stopwatchLap(){
-    LCDMEM[4] = digit[stopwatchTime.minutes / 10][0];
-    LCDMEM[5] = digit[stopwatchTime.minutes / 10][1];
-    LCDMEM[6] = digit[stopwatchTime.minutes % 10][0];
-    LCDMEM[7] = digit[stopwatchTime.minutes % 10][1];
-
+// Digit values to display (these hold the frozen snapshot)
+unsigned char minutesOne, minutesTwo, minutesThree, minutesFour;
+unsigned char secondsOne, secondsTwo, secondsThree, secondsFour;
+unsigned char millisecondsOne, millisecondsTwo, millisecondsThree, millisecondsFour;
+ 
+void StopwatchLapValue(){
+    minutesOne = digit[stopwatchTime.minutes / 10][0];
+    minutesTwo = digit[stopwatchTime.minutes / 10][1];
+    minutesThree = digit[stopwatchTime.minutes % 10][0];
+    minutesFour = digit[stopwatchTime.minutes % 10][1];
+ 
+    secondsOne = digit[stopwatchTime.seconds / 10][0];
+    secondsTwo = digit[stopwatchTime.seconds / 10][1];
+    secondsThree = digit[stopwatchTime.seconds % 10][0];
+    secondsFour = digit[stopwatchTime.seconds % 10][1];
+ 
+    millisecondsOne = digit[stopwatchTime.milliSeconds / 100][0];
+    millisecondsTwo = digit[stopwatchTime.milliSeconds / 100][1];
+    millisecondsThree = digit[(stopwatchTime.milliSeconds % 100) / 10][0];
+    millisecondsFour = digit[(stopwatchTime.milliSeconds % 100) / 10][1];
+}
+ 
+void StopwatchLap(){
+    LCDMEM[4] = minutesOne;
+    LCDMEM[5] = minutesTwo;
+    LCDMEM[6] = minutesThree;
+    LCDMEM[7] = minutesFour;
+ 
     LCDMEM[7] |= symbols[0][0];
-
-    LCDMEM[8] = digit[stopwatchTime.seconds / 10][0];
-    LCDMEM[9] = digit[stopwatchTime.seconds / 10][1];
-    LCDMEM[10] = digit[stopwatchTime.seconds % 10][0];
-    LCDMEM[11] = digit[stopwatchTime.seconds % 10][1];
-
+ 
+    LCDMEM[8] = secondsOne;
+    LCDMEM[9] = secondsTwo;
+    LCDMEM[10] = secondsThree;
+    LCDMEM[11] = secondsFour;
+ 
     LCDMEM[11] |= symbols[3][0];
-
-    LCDMEM[2] = digit[stopwatchTime.milliSeconds / 100][0]; 
-    LCDMEM[3] = digit[stopwatchTime.milliSeconds / 100][1]; 
-    LCDMEM[18] = digit[(stopwatchTime.milliSeconds % 100) / 10][0]; 
-    LCDMEM[19] = digit[(stopwatchTime.milliSeconds % 100) / 10][1]; 
+ 
+    LCDMEM[2] = millisecondsOne;
+    LCDMEM[3] = millisecondsTwo;
+    LCDMEM[18] = millisecondsThree;
+    LCDMEM[19] = millisecondsFour;
     //__delay_cycles(8000000);
 }

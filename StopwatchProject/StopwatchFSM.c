@@ -18,6 +18,7 @@
 
 #include "StopwatchFSM.h"
 #include "Defines.h"
+#include "StopwatchRunning.h"
 #include "msp430fr4133.h"
 #include "Date.h"
 
@@ -40,15 +41,14 @@ void StopwatchFSM(){
                 }
                 break;
             case STOPWATCH_RUNNING:
-                stopwatchRun();
+                StopwatchRun();
                 if(startStopFlag == 1){
                     stopwatchState = STOPWATCH_STOPPED;
-                    stopwatchStopped();
                     startStopFlag = 0;
                 }
                 else if (lapResetFlag == 1){
                     stopwatchState = STOPWATCH_LAP;
-                    stopwatchLap();                          //Placed here so it isnt repeatedly called within STOPWATCH_LAP mode
+                    StopwatchLapValue();                         //Placed here so it isnt repeatedly called within STOPWATCH_LAP mode
                     lapResetFlag = 0;
                 }
                 else {
@@ -58,16 +58,16 @@ void StopwatchFSM(){
             case STOPWATCH_LAP:
                 if(startStopFlag == 1){
                     stopwatchState = STOPWATCH_STOPPED;
-                    stopwatchStopped();
                     startStopFlag = 0;
                 }
                 else if (lapResetFlag == 1){
-                    stopwatchLap();
+                    StopwatchLapValue();
                     stopwatchState = STOPWATCH_LAP;
                     lapResetFlag = 0;
                 }
                 else {
                     stopwatchState = STOPWATCH_LAP;
+                    StopwatchLap();
                 }
                 break;
             case STOPWATCH_STOPPED:
@@ -82,6 +82,7 @@ void StopwatchFSM(){
                 }
                 else {
                     stopwatchState = STOPWATCH_STOPPED;
+                    StopwatchStopped();
                 }
                 break;
             default:

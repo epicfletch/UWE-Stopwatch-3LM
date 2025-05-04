@@ -13,7 +13,7 @@
 
 #include "StopwatchRunning.h"
 
-void stopwatchRun(){
+void StopwatchRun(){
     LCDMEM[4] = digit[stopwatchTime.minutes / 10][0];
     LCDMEM[5] = digit[stopwatchTime.minutes / 10][1];
     LCDMEM[6] = digit[stopwatchTime.minutes % 10][0];

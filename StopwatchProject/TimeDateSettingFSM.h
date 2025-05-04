@@ -2,7 +2,7 @@
   FILENAME :  TimeDateSettingFSM.h
 
   DESCRIPTION :
-              Header file for Time/date/alarm setting Finite state machine 
+              Header file for Time/date setting FSM
 
  AUTHOR :     Louie Williams
 
