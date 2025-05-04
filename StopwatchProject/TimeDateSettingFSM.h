@@ -7,7 +7,14 @@
  AUTHOR :     Louie Williams
 
 
- INCLUDES : defines.h, 
+ INCLUDES : Defines.h,
+ButtonInterrupts.h
+LCD.h
+Date.h
+HardwareSetup.h
+board.h
+TimerInterrupt.h
+msp430fr4133.h
 
  CHANGES :
 
@@ -24,7 +31,7 @@
 #include "TimerInterrupt.h"
 #include "msp430fr4133.h"
 
-
+/* structure for the set time which is assigned to the clock time and displayed on the LCD in clock mode*/
 struct timeSet
 {
   uint8_t month;

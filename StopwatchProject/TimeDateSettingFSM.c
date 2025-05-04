@@ -20,23 +20,18 @@
 #include "LCD.h"
 #include "TimerInterrupt.h"
 
-//struct timeSet setTime = {0,0,0,0,0};
 void TimeDateSettingFSM()
 {
     uint8_t TimeDateState = HOUR_SET;
-    //setTime.hours = 0;
-    //setTime.minutes = 0;
-    //setTime.day = 0;
-    //setTime.weekDay = 0;
-
-    //LCDCTL0 |= LCD4MUX | LCDON;                                // Turn on LCD, 4-mux selected
     while(1)
     {
+        /* state machine for time /date setting*/
         switch (TimeDateState)
         {
             case HOUR_SET:
                 if (startStopFlag)
                 {
+                    /* increments hour value*/
                     setTime.hours ++;
                     if (setTime.hours == 24)
                     {
@@ -46,12 +41,14 @@ void TimeDateSettingFSM()
                 }
                 else if(lapResetFlag)
                 {
+                    /*set the global clock time to the set time and move state*/
                     clockTime.hours = setTime.hours;
                     TimeDateState = MIN_SET;
                     lapResetFlag = 0;
                 }
                 else
                 {
+                    /*flashes the hour digits and resets LCD minutes to display minutes if moving back from date setting*/
                     LCDMEM[8] = digit[setTime.minutes/10][0];
                     LCDMEM[9] = digit[setTime.minutes/10][1];
                     LCDMEM[10] = digit[setTime.minutes%10][0];
@@ -212,13 +209,11 @@ void TimeDateSettingFSM()
                     }
                     break;
             default:
+            /* default state is hour set*/
             TimeDateState = HOUR_SET;
             break;
         }
         
-        if(modeFlag == 1){
-            modeFlag = 0;
-        }
     }
 }
 
