@@ -2,7 +2,7 @@
   NAME :      StopwatchFSM.c
 
   DESCRIPTION :
-              Controls what state the stopwatch mode is in 
+              Controls the state the the chrono mode is in
 
   Author: Ethan Evans
 
@@ -18,11 +18,13 @@
 
 #include "StopwatchFSM.h"
 #include "Defines.h"
-#include "StopwatchRunning.h"
 #include "msp430fr4133.h"
 #include "Date.h"
 
 uint8_t stopwatchState = STOPWATCH_ZERO;
+
+// Digit values to display (these hold the frozen snapshot)
+unsigned char minutesHold, secondsHold, milliSecondsHold;
 
 void StopwatchFSM(){
     LCDCTL0 |= LCD4MUX | LCDON;               
@@ -48,7 +50,7 @@ void StopwatchFSM(){
                 }
                 else if (lapResetFlag == 1){
                     stopwatchState = STOPWATCH_LAP;
-                    StopwatchLapValue();                         //Placed here so it isnt repeatedly called within STOPWATCH_LAP mode
+                    StopwatchLapValue();                         
                     lapResetFlag = 0;
                 }
                 else {
@@ -88,4 +90,145 @@ void StopwatchFSM(){
             default:
         }
     }
+}
+
+void StopwatchLapValue(){
+    minutesHold = stopwatchTime.minutes;
+    secondsHold = stopwatchTime.seconds;
+    milliSecondsHold = stopwatchTime.milliSeconds;
+}
+ 
+/*F ----------------------------------------------------------------------------
+  NAME :      StopwatchLap.c
+
+  DESCRIPTION :
+              Functions to control the stopwatch to be in lap mode where the time is set to what it was when button was pressed but continues to count in the background
+
+  FUNCTIONS :
+              [1] 
+                INPUTS :    none
+                RETURNS :   void
+                  a) 
+*F ---------------------------------------------------------------------------*/
+void StopwatchLap(){
+    LCDMEM[4] = digit[minutesHold / 10][0];
+    LCDMEM[5] = digit[minutesHold / 10][1];
+    LCDMEM[6] = digit[minutesHold % 10][0];
+    LCDMEM[7] = digit[minutesHold % 10][1];
+ 
+    LCDMEM[7] |= symbols[0][0];
+ 
+    LCDMEM[8] = digit[secondsHold / 10][0];
+    LCDMEM[9] = digit[secondsHold / 10][1];
+    LCDMEM[10] = digit[secondsHold % 10][0];
+    LCDMEM[11] = digit[secondsHold % 10][1];
+    LCDMEM[11] |= symbols[3][0];
+ 
+    LCDMEM[2] = digit[milliSecondsHold / 100][0];
+    LCDMEM[3] = digit[milliSecondsHold / 100][1];
+    LCDMEM[18] = digit[(milliSecondsHold % 100) / 10][0];
+    LCDMEM[19] = digit[(milliSecondsHold % 100) / 10][1];
+    //__delay_cycles(8000000);
+}
+
+/*F ----------------------------------------------------------------------------
+  NAME :      StopwatchRunning.c
+
+  DESCRIPTION :
+              Functions to control the stopwatch to be in running mode where it counts up.
+
+  FUNCTIONS :
+              [1] 
+                INPUTS :    none
+                RETURNS :   void
+                  a) 
+*F ---------------------------------------------------------------------------*/
+void StopwatchRun(){
+    LCDMEM[4] = digit[stopwatchTime.minutes / 10][0];
+    LCDMEM[5] = digit[stopwatchTime.minutes / 10][1];
+    LCDMEM[6] = digit[stopwatchTime.minutes % 10][0];
+    LCDMEM[7] = digit[stopwatchTime.minutes % 10][1];
+
+    LCDMEM[7] |= symbols[0][0];
+
+    LCDMEM[8] = digit[stopwatchTime.seconds / 10][0];
+    LCDMEM[9] = digit[stopwatchTime.seconds / 10][1];
+    LCDMEM[10] = digit[stopwatchTime.seconds % 10][0];
+    LCDMEM[11] = digit[stopwatchTime.seconds % 10][1];
+
+    LCDMEM[11] |= symbols[3][0];
+
+    LCDMEM[2] = digit[stopwatchTime.milliSeconds / 100][0]; 
+    LCDMEM[3] = digit[stopwatchTime.milliSeconds / 100][1]; 
+    LCDMEM[18] = digit[(stopwatchTime.milliSeconds % 100) / 10][0]; 
+    LCDMEM[19] = digit[(stopwatchTime.milliSeconds % 100) / 10][1]; 
+    //__delay_cycles(8000000);
+}
+
+/*F ----------------------------------------------------------------------------
+  NAME :      StopwatchStopped.c
+
+  DESCRIPTION :
+              Functions to control the stopwatch to be in stopped mode where the number shown when button is pressed is retained
+
+  FUNCTIONS :
+              [1] 
+                INPUTS :    none
+                RETURNS :   void
+                  a) 
+*F ---------------------------------------------------------------------------*/
+void StopwatchStopped(){
+    LCDMEM[4] = digit[stopwatchTime.minutes / 10][0];
+    LCDMEM[5] = digit[stopwatchTime.minutes / 10][1];
+    LCDMEM[6] = digit[stopwatchTime.minutes % 10][0];
+    LCDMEM[7] = digit[stopwatchTime.minutes % 10][1];
+
+    LCDMEM[7] |= symbols[0][0];
+
+    LCDMEM[8] = digit[stopwatchTime.seconds / 10][0];
+    LCDMEM[9] = digit[stopwatchTime.seconds / 10][1];
+    LCDMEM[10] = digit[stopwatchTime.seconds % 10][0];
+    LCDMEM[11] = digit[stopwatchTime.seconds % 10][1];
+
+    LCDMEM[11] |= symbols[3][0];
+
+    LCDMEM[2] = digit[stopwatchTime.milliSeconds / 100][0]; 
+    LCDMEM[3] = digit[stopwatchTime.milliSeconds / 100][1]; 
+    LCDMEM[18] = digit[(stopwatchTime.milliSeconds % 100) / 10][0]; 
+    LCDMEM[19] = digit[(stopwatchTime.milliSeconds % 100) / 10][1]; 
+    //__delay_cycles(8000000);
+}
+
+/*F ----------------------------------------------------------------------------
+  NAME :      StopwatchNormal.c
+
+  DESCRIPTION :
+              Function use to set the stopwatch to 00:00.00. Used for when the stop watch is reset
+
+  FUNCTIONS :
+              [1] 
+                INPUTS :    none
+                RETURNS :   void
+                  a) 
+*F ---------------------------------------------------------------------------*/
+void ZeroStopwatch(){
+    LCDMEM[4] = digit[0][0];
+    LCDMEM[5] = digit[0][1];
+    LCDMEM[6] = digit[0][0];
+    LCDMEM[7] = digit[0][1];
+
+    LCDMEM[7] |= symbols[0][0];
+
+    LCDMEM[8] = digit[0][0];
+    LCDMEM[9] = digit[0][1];
+    LCDMEM[10] = digit[0][0];
+    LCDMEM[11] = digit[0][1];
+
+    LCDMEM[11] |= symbols[3][0];
+
+    LCDMEM[2] = digit[0][0]; 
+    LCDMEM[3] = digit[0][1]; 
+    LCDMEM[18] = digit[0][0]; 
+    LCDMEM[19] = digit[0][1]; 
+    //__delay_cycles(8000000);
 }

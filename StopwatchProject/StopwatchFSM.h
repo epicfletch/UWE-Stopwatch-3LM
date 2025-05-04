@@ -16,14 +16,17 @@
 #define StopwatchFSM_H
 
 #include "Defines.h"
-#include "StopwatchZero.h"
-#include "StopwatchRunning.h"
-#include "StopwatchLap.h"
-#include "StopwatchStopped.h"
-
+#include "LCD.h"
+#include "TimerInterrupt.h"
+#include "ButtonInterrupts.h"
 
 extern uint8_t stopwatchState;
 
 void StopwatchFSM();
+void StopwatchLapValue();
+void StopwatchLap();
+void StopwatchRun();
+void StopwatchStopped();
+void ZeroStopwatch();
 
 #endif
