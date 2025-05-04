@@ -26,13 +26,18 @@
 
 uint8_t clockState = CLOCK_NORMAL;
 int chimeToggleFlag = 0;
+int chimeFlag = 0;
 
 void ClockFSM(){
     while(1){
         if(chimeToggleFlag == 1){
             clockState = CLOCK_CHIME_TOGGLE;
             chimeToggleFlag = 0;
-        }    
+        }   
+        if(chimeFlag == 1){
+            clockState = CLOCK_CHIME;
+            chimeFlag = 0;
+        }        
         switch (clockState){
             case CLOCK_NORMAL: /* normal clock display */
                 UpdateClock();
@@ -122,7 +127,6 @@ void ClockFSM(){
                 if(chimeState == 1){
                     Chime();
                 }
-                else{}
                 clockState = CLOCK_NORMAL;
                 break;
             default:

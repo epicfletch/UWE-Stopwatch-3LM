@@ -31,5 +31,4 @@ void UpdateClock(){
     LCDMEM[3] = dayOfWeek[setTime.weekDay][1];
     LCDMEM[18] = dayOfWeek[setTime.weekDay][2];
     LCDMEM[19] = dayOfWeek[setTime.weekDay][3];
-    //__delay_cycles(8000000);
 }
