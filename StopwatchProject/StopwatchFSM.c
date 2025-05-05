@@ -31,7 +31,7 @@ void StopwatchFSM(){
     while(1){
         switch (stopwatchState){
             case STOPWATCH_ZERO:
-                ZeroStopwatch();
+                StopwatchDisplay();                     //When in STOPWATCH_ZERO values are 0 so 00:00.00 is displayed
                 if(startStopFlag == 1){
                     stopwatchState = STOPWATCH_RUNNING;
                     startStopFlag = 0;
@@ -43,14 +43,14 @@ void StopwatchFSM(){
                 }
                 break;
             case STOPWATCH_RUNNING:
-                StopwatchRun();
+                StopwatchDisplay();                     //When in STOPWATCH_Running values are counting up and this is displayed on LCD
                 if(startStopFlag == 1){
                     stopwatchState = STOPWATCH_STOPPED;
                     startStopFlag = 0;
                 }
                 else if (lapResetFlag == 1){
                     stopwatchState = STOPWATCH_LAP;
-                    StopwatchLapValue();                         
+                    StopwatchLapValue();                //Function to save the values at the time of the lap button press                    
                     lapResetFlag = 0;
                 }
                 else {
@@ -63,13 +63,13 @@ void StopwatchFSM(){
                     startStopFlag = 0;
                 }
                 else if (lapResetFlag == 1){
-                    StopwatchLapValue();
+                    StopwatchLapValue();                //Function to save the values at the time of the lap button press     
                     stopwatchState = STOPWATCH_LAP;
                     lapResetFlag = 0;
                 }
                 else {
                     stopwatchState = STOPWATCH_LAP;
-                    StopwatchLap();
+                    StopwatchLap();                     //Display the values currently saved by StopwatchLapValue()
                 }
                 break;
             case STOPWATCH_STOPPED:
@@ -84,7 +84,7 @@ void StopwatchFSM(){
                 }
                 else {
                     stopwatchState = STOPWATCH_STOPPED;
-                    StopwatchStopped();
+                    StopwatchDisplay();                 //When in STOPWATCH_STOPPED values are unchanging and is displayed on the screen
                 }
                 break;
             default:
@@ -99,7 +99,7 @@ void StopwatchLapValue(){
 }
  
 /*F ----------------------------------------------------------------------------
-  NAME :      StopwatchLap.c
+  NAME :      StopwatchLap
 
   DESCRIPTION :
               Functions to control the stopwatch to be in lap mode where the time is set to what it was when button was pressed but continues to count in the background
@@ -132,18 +132,17 @@ void StopwatchLap(){
 }
 
 /*F ----------------------------------------------------------------------------
-  NAME :      StopwatchRunning.c
-
+  NAME :      StopwatchDisplay
   DESCRIPTION :
-              Functions to control the stopwatch to be in running mode where it counts up.
-
+              Function to display the current timer time. This will vary depending on the current mode
+              Used for Stopped, Running and Zero
   FUNCTIONS :
               [1] 
                 INPUTS :    none
                 RETURNS :   void
                   a) 
 *F ---------------------------------------------------------------------------*/
-void StopwatchRun(){
+void StopwatchDisplay(){
     LCDMEM[4] = digit[stopwatchTime.minutes / 10][0];
     LCDMEM[5] = digit[stopwatchTime.minutes / 10][1];
     LCDMEM[6] = digit[stopwatchTime.minutes % 10][0];
@@ -162,73 +161,5 @@ void StopwatchRun(){
     LCDMEM[3] = digit[stopwatchTime.milliSeconds / 100][1]; 
     LCDMEM[18] = digit[(stopwatchTime.milliSeconds % 100) / 10][0]; 
     LCDMEM[19] = digit[(stopwatchTime.milliSeconds % 100) / 10][1]; 
-    //__delay_cycles(8000000);
-}
-
-/*F ----------------------------------------------------------------------------
-  NAME :      StopwatchStopped.c
-
-  DESCRIPTION :
-              Functions to control the stopwatch to be in stopped mode where the number shown when button is pressed is retained
-
-  FUNCTIONS :
-              [1] 
-                INPUTS :    none
-                RETURNS :   void
-                  a) 
-*F ---------------------------------------------------------------------------*/
-void StopwatchStopped(){
-    LCDMEM[4] = digit[stopwatchTime.minutes / 10][0];
-    LCDMEM[5] = digit[stopwatchTime.minutes / 10][1];
-    LCDMEM[6] = digit[stopwatchTime.minutes % 10][0];
-    LCDMEM[7] = digit[stopwatchTime.minutes % 10][1];
-
-    LCDMEM[7] |= symbols[0][0];
-
-    LCDMEM[8] = digit[stopwatchTime.seconds / 10][0];
-    LCDMEM[9] = digit[stopwatchTime.seconds / 10][1];
-    LCDMEM[10] = digit[stopwatchTime.seconds % 10][0];
-    LCDMEM[11] = digit[stopwatchTime.seconds % 10][1];
-
-    LCDMEM[11] |= symbols[3][0];
-
-    LCDMEM[2] = digit[stopwatchTime.milliSeconds / 100][0]; 
-    LCDMEM[3] = digit[stopwatchTime.milliSeconds / 100][1]; 
-    LCDMEM[18] = digit[(stopwatchTime.milliSeconds % 100) / 10][0]; 
-    LCDMEM[19] = digit[(stopwatchTime.milliSeconds % 100) / 10][1]; 
-    //__delay_cycles(8000000);
-}
-
-/*F ----------------------------------------------------------------------------
-  NAME :      StopwatchNormal.c
-
-  DESCRIPTION :
-              Function use to set the stopwatch to 00:00.00. Used for when the stop watch is reset
-
-  FUNCTIONS :
-              [1] 
-                INPUTS :    none
-                RETURNS :   void
-                  a) 
-*F ---------------------------------------------------------------------------*/
-void ZeroStopwatch(){
-    LCDMEM[4] = digit[0][0];
-    LCDMEM[5] = digit[0][1];
-    LCDMEM[6] = digit[0][0];
-    LCDMEM[7] = digit[0][1];
-
-    LCDMEM[7] |= symbols[0][0];
-
-    LCDMEM[8] = digit[0][0];
-    LCDMEM[9] = digit[0][1];
-    LCDMEM[10] = digit[0][0];
-    LCDMEM[11] = digit[0][1];
-
-    LCDMEM[11] |= symbols[3][0];
-
-    LCDMEM[2] = digit[0][0]; 
-    LCDMEM[3] = digit[0][1]; 
-    LCDMEM[18] = digit[0][0]; 
-    LCDMEM[19] = digit[0][1]; 
     //__delay_cycles(8000000);
 }
