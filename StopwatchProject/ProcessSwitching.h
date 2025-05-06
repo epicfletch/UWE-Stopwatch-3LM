@@ -19,6 +19,8 @@
 #ifndef ProcessSwitching_H
 #define ProcessSwitching_H
 
+#define EMPTY 0
+
 #include "Defines.h"
 
 struct ProcessControlBlock
@@ -36,6 +38,8 @@ extern uint32_t saved_sp;
 
 extern uint8_t current_process;
 
+extern volatile uint8_t g_buffer;
+
 extern uint16_t pc1;
 extern uint16_t pc2;
 
@@ -44,5 +48,10 @@ void InitialiseProcess(unsigned int process_index, void (*funct)());
 void RunProcess(unsigned int process_index);
 
 void ProcessSwitching();
+
+/* message passing functions from example code in blackboard*/
+void send(uint8_t *buffer, uint8_t message);
+
+uint8_t receive(uint8_t *buffer);
 
 #endif

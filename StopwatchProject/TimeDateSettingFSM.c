@@ -19,9 +19,11 @@
 #include "TimeDateSettingFSM.h"
 #include "LCD.h"
 #include "TimerInterrupt.h"
+#include "ProcessSwitching.h"
 
 void TimeDateSettingFSM()
 {
+    uint8_t messageArray[5] = {0,0,0,0,0};
     uint8_t TimeDateState = HOUR_SET;
     while(1)
     {
@@ -41,8 +43,9 @@ void TimeDateSettingFSM()
                 }
                 else if(lapResetFlag)
                 {
-                    /*set the global clock time to the set time and move state*/
-                    clockTime.hours = setTime.hours;
+                    /*sets the message array at index 0 to the set hours send message to the set the hour time and move state*/
+                    messageArray[0] = setTime.hours;
+                    send(&g_buffer, messageArray[0]);
                     TimeDateState = MIN_SET;
                     lapResetFlag = 0;
                 }

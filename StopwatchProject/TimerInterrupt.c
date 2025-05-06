@@ -30,6 +30,7 @@
 #include "Defines.h"
 #include "StopwatchFSM.h"
 #include "TimeDateSettingFSM.h"
+#include "ProcessSwitching.h"
 
 uint8_t weekday = 0;
 
@@ -42,14 +43,21 @@ int i = 0;
 int j = 0;
 int snoozeFlag = 0;
 
+uint8_t messageRecieve[5] = {0,0,0,0,0};
+
 #pragma vector=TIMER0_A0_VECTOR
 __interrupt void Timer0_A0 (void)    // Timer0 A0 10ms interrupt service routine
 {
   __bic_SR_register(GIE); /* Clear GIE bit, disabling interrupts */
+
   if((clockTime.hours == alarmTime.hours) && (clockTime.minutes == alarmTime.minutes)){
     clockState = CLOCK_ALARM;
   }
-
+  if (g_buffer != EMPTY){
+    messageRecieve[0] = receive(&g_buffer);
+  }
+  
+  clockTime.hours = messageRecieve[0];
   clockTime.milliSeconds += 10; /* add 10ms to the ms count */
   /* increment time units and deal with rollovers */
   if (clockTime.milliSeconds >= 1000){

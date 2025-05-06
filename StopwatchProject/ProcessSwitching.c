@@ -24,6 +24,9 @@ uint8_t current_process = 0;
 uint16_t pc1;
 uint16_t pc2;
 
+volatile uint8_t g_buffer = 0;         //5 byte-wide buffer to act as mailbox
+                                    //volatile so it is not optimised out
+
 
 void InitialiseProcess(unsigned int process_index, void (*funct)()){
     if (process_index < MAX_PROCESSES)
@@ -123,3 +126,53 @@ void ProcessSwitching(){
             " pop.a R10 \n"   
     );
 }
+
+
+/*F ----------------------------------------------------------------------------
+  NAME        : send()
+  DESCRIPTION : waits until mailbox is empty and updates with new message
+
+  INPUTS      : char *g_buffer, char message
+
+  RETURNS     : void
+*F ---------------------------------------------------------------------------*/
+
+
+void send(uint8_t *g_buffer, uint8_t message)  //passes message to update the mailbox
+{
+   volatile unsigned int i;              //volatile so it is not optimised out
+
+   while(*g_buffer)                      //wait for mailbox to be empty as this indicates previous message has been taken
+    {
+        i = i + 1;                       //dummy operation so while loop is not optimised out
+    }
+
+   *g_buffer = message;                  //send the new message as the mailbox is empty
+}
+
+
+/*F ----------------------------------------------------------------------------
+  NAME        : receive()
+  DESCRIPTION : waits for a new message and passes to process
+                clears mailbox when new message has been read
+
+  INPUTS      : char *g_buffer
+
+  RETURNS     : char message
+*F ---------------------------------------------------------------------------*/
+
+
+uint8_t receive(uint8_t *g_buffer)  //must read and write from/to mailbox
+{
+    uint8_t message;
+
+    if (*g_buffer != EMPTY)   //if the mailbox contains new message
+    {
+        message = *g_buffer;  //store the new message in a temp variable
+
+        *g_buffer = EMPTY;    //empty the mailbox to indicate that the message has been received
+    }
+
+    return message;           //update process with new message
+}
+
