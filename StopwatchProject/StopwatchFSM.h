@@ -25,8 +25,6 @@ extern uint8_t stopwatchState;
 void StopwatchFSM();
 void StopwatchLapValue();
 void StopwatchLap();
-void StopwatchRun();
-void StopwatchStopped();
-void ZeroStopwatch();
+void StopwatchDisplay();
 
 #endif
